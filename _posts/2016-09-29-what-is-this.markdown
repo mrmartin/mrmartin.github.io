@@ -16,4 +16,4 @@ In an hour or so, a relatively experience github user can set this up. Here's wh
 - write this post to see that it works
 
 
-For my next trick, I'd like to set up a photo gallery, and some stati non-post pages including some personal info, like a list of publications, online references, favourite books and so on.
+For my next trick, I'd like to set up a photo gallery, and edit the about page to contain some personal info, like a list of publications, online references, favourite books and so on.
