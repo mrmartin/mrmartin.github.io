@@ -34,4 +34,4 @@ Středu jsme ztrávili v Českých Budějovicích, kde jsme byli na značně chu
 
 ![Budvar]({{ site.url }}/images/20161005_142854_HDR.jpg)
 
-Ve čtvrtek jsme v Praze obešli pivovary Tři Růže, Pivovarský Dům, Břevnovský Klášter, a večer jsme s nadšením uzavřeli v pivovaru Strahovský Klášter. V Praze jsou minipivovary znatelně dražsí, a Pivovarský Dům a Břevnosvký Klášter patří stejné firmě, ale Strahov je jednoznačně jeden z nejlepších v Čechách. Ve čtvrtek jsme se vrátili vlakem do Brna s plechovkou Plzně, a protože byl tak plný že mnozí cestující stáli v uličkách tak jsme si libovali že jsme si den před tím udělali zdarma rezervace u stolečku.
+Ve čtvrtek jsme v Praze obešli pivovary Tři Růže, U Medvídků, Pivovarský Dům, Břevnovský Klášter, a večer jsme s nadšením uzavřeli v pivovaru Strahovský Klášter. V Praze jsou minipivovary znatelně dražsí, a Pivovarský Dům a Břevnosvký Klášter patří stejné firmě, ale Strahov je jednoznačně jeden z nejlepších v Čechách. Ve čtvrtek jsme se vrátili vlakem do Brna s plechovkou Plzně, a protože byl tak plný že mnozí cestující stáli v uličkách tak jsme si libovali že jsme si den před tím udělali zdarma rezervace u stolečku.
