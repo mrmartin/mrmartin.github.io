@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 
-# Hi, I'm Martin. 
-## I solve problems.
+# Hi, I'm Martin
+## I solve problems. ##
 
 For those with ideas and ambitions, the most precious thing in life is time. It's easy to make the mistake to think that money is the only way to make the time to do the things we want. But time cannot be bought so easily. Having money and spending it to make time is not enough. Sure, those with money can afford not to spend time making it, but it's important not to spend all that time making that money.
 
