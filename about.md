@@ -1,19 +1,10 @@
 ---
 layout: page
-title: About
+title: Hi, I'm Martin
 permalink: /about/
 ---
 
-# Hi, I'm Martin
-## I solve problems. ##
-
-This is a paragraph, it's surrounded by whitespace. Next up are some headers, they're heavily influenced by GitHub's markdown style.
-
-## Header 2 (H1 is reserved for post titles)##
-
-### Header 3
-
-#### Header 4
+### I solve problems.
 
 For those with ideas and ambitions, the most precious thing in life is time. It's easy to make the mistake to think that money is the only way to make the time to do the things we want. But time cannot be bought so easily. Having money and spending it to make time is not enough. Sure, those with money can afford not to spend time making it, but it's important not to spend all that time making that money.
 
