@@ -7,6 +7,14 @@ permalink: /about/
 # Hi, I'm Martin
 ## I solve problems. ##
 
+This is a paragraph, it's surrounded by whitespace. Next up are some headers, they're heavily influenced by GitHub's markdown style.
+
+## Header 2 (H1 is reserved for post titles)##
+
+### Header 3
+
+#### Header 4
+
 For those with ideas and ambitions, the most precious thing in life is time. It's easy to make the mistake to think that money is the only way to make the time to do the things we want. But time cannot be bought so easily. Having money and spending it to make time is not enough. Sure, those with money can afford not to spend time making it, but it's important not to spend all that time making that money.
 
 My reality is somewhat different: there are ambitions for which large amounts of money are necessary. I want to explore space in my life, and I want to do it on my own terms. I want to make a difference, and not just voice my goal to make that difference. So it's far more productive to make the money, then to do my own research and implement my own ideas, rather than push them through with large organisations. Not to mention the rewards.
