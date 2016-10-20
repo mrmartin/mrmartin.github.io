@@ -31,10 +31,10 @@ This is my long-term to-do list. Tasks are ordered by importance. Subtasks are o
 
 * Brno PhD
   1. 24 languages RNN
-    1. Experiment
-    2. Results
-    3. Paper
-    4. Submit
+      1. Experiment
+      2. Results
+      3. Paper
+      4. Submit
   2. Film alignment
     1. Download subtitles
     2. Process scripts with subtitles
