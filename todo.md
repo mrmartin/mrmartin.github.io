@@ -6,37 +6,40 @@ permalink: /todo/
 
 This is my long-term to-do list. Tasks are ordered by importance. Subtasks are ordered chronologically.
 
+* University of Cape Town
+  1. Create Terrain Synthesis with realistic watershed basin
+  2. Add user control to algorithm
+  3. Write whitepaper
+  
 * EnigmaTalk
-  1. Use GMP arithmetic
-  2. Develop Apps
-  3. Create public image
+  1. Wait for Y Combinator
+  2. Write core decryption such that wrong passwords do not crash
+  3. Finalize Apps
+  4. Publish Apps
+  5. Generate publicity
 
-* Warwick PhD Viva
+* Brno PhD Film alignment
+  1. Build search to video snippets script
+  2. Test with various phrases
+
+* Warwick PhD
+  1. Rewrite thesis, step by step
 
 * Texture Synthesis App
-  1. Compile and Run Resynthesizer Locally
-  2. Create App developpment environment
-  3. Resynthesizer inside Phone
-  4. Create whitepaper, presentation, video demo
+  1. Create whitepaper, presentation, video demo
 
 * Handwrite book
-  1. Replicate RNN handwriting locally
-  2. Implement smooth plotter control
-  3. create page turner
+  1. RNN handwrite entire page
+  2. Write one copy of the book with manual page turning
+  3. Build page turner
   4. launch writing process
 
 * Brno PhD 24 languages RNN
-  1. Experiment
-  2. Results
-  3. Paper
-  4. Submit
-  
-* Brno PhD Film alignment
-  1. Download subtitles
-  2. Process scripts with subtitles
-  3. Download films
-  4. Process aligned scripts with films using RNN + CNN
-  
+  1. Compile results
+  2. Write whitepaper
+  3. Arxiv
+  4. Submit to appropriate conference/journal
+    
 * Brno PhD Sun direction CNN
   1. Get relative sun direction from GeoPoses dataset
   2. Manually evaluate quality by drawing sun into images
