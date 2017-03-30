@@ -18,8 +18,8 @@ permalink: /links/
   
 * Computing
   - [Item-based collaborative filtering](http://www.cs.carleton.edu/cs_comps/0607/recommend/recommender/itembased.html)
-  - [TAGora online social communities datasets](https://web.archive.org/web/20130116133948/http://www.tagora-project.eu/data) - (defunct)
-  - [HBC - Hierarchical Bayes Compiler](https://web.archive.org/web/20110315150421/http://www.cs.utah.edu/~hal/HBC/)
+  - [TAGora online social communities datasets](https://web.archive.org/web/20130116133948/http://www.tagora-project.eu/data) (defunct)
+  - [HBC - Hierarchical Bayes Compiler](https://web.archive.org/web/20110315150421/http://www.cs.utah.edu/~hal/HBC/) (defunct)
   - [BOB signal processing and machine learning toolbox](https://www.idiap.ch/software/bob/)
   - [element-wise GPU operations with Matlab](https://www.mathworks.com/help/distcomp/run-element-wise-matlab-code-on-a-gpu.html)
   
