@@ -12,6 +12,10 @@ permalink: /links/
   - [JustEvidence](http://justevidence.org/)
   - [Street Violence Map](http://streetviolence.org/) (defunct)
   - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop
+  
+* My Hobbies
+  - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
+  - [Live Band Recordings](https://soundcloud.com/nejistotatrolejbusu)
 
 * Space
   - [Chinese Research in Bioregenarative Life Support Systems](https://www.researchgate.net/profile/Hong_Liu38)
