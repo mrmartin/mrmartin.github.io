@@ -3,6 +3,7 @@ layout: page
 title: Hi, I'm Martin
 permalink: /about/
 ---
+{% include analytics.html %}
 
 ### I solve problems.
 
