@@ -4,6 +4,7 @@ title:  "What is this?"
 date:   2016-09-29 09:54:30 +0100
 categories: jekyll update
 ---
+{% include analytics.html %}
 In order to host my website, I've tried a number of different technologies over the years. Free webhost, free VPS, then a paid VPS, and finally my own Cubieboard at home. Now I'm trying github.io hosting, and I'm very excited about it.
 
 In an hour or so, a relatively experience github user can set this up. Here's what I did:
