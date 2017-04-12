@@ -4,6 +4,7 @@ title:  "Cesta po Českých Pivovarech"
 date:   2016-10-09 15:05:30 +0100
 categories: pivo travel
 ---
+{% include analytics.html %}
 Vyrazili jsme v pátek ráno vlakem z Brna do Žamberka, s příjemnou zastávkou v Letohradě. Počasí nám přálo a po cestě jsme si dali Radegast a Grepový Radler.
 
 V Žamberku jsme se ubytovali v hotelu na náměstí, a po telefonu si domluvili ochutnávku v pivovaru Jelen. Tam nám sám sládek nalil svá tři piva (výborná!), a pak přímo z tanků asi deset piv která vyrábí na zakázku. Pak jsme dojeli vlakem do Potštejna, kde jsme v restauraci pivovaru ochutnali všechny piva Clock. Po cestě zpět do hotelu jsme se zastavili ještě v pivovarní restauraci Kanec, který nám nechutnal.
