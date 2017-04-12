@@ -3,7 +3,7 @@ layout: page
 title: Links
 permalink: /links/
 ---
-
+{% include analytics.html %}
 * My Work
   - [ENIGMAtalk](http://enigmatalk.com/) app for secure text communications over insecure channels
   - [My github page](https://github.com/mrmartin)
