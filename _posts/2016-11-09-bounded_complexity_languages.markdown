@@ -4,6 +4,7 @@ title:  "Bounded Complexity Languages"
 date:   2016-11-09 18:48:30 +0100
 categories: computing
 ---
+{% include analytics.html %}
 
 Recently, I have been thinking about Gödel's Incompleteness Theorem, its equivalence to the Halting Problem, and the applications of these results in solving P vs NP.
 
