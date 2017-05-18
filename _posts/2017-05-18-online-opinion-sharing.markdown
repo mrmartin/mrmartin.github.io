@@ -10,6 +10,6 @@ People are interested in other people's opinions, and they like to share their v
 
 There are various platforms allowing the sharing of such information, but all of them contain a lot of clutter: they do not specialize.
 
-Today, I created [opinion](opinion.000webhostapp.com), a simple platform to share opinions. It's very simple, and a lot could be done to make it more attractive. But it works.
+Today, I created [opinion](http://opinion.000webhostapp.com), a simple platform to share opinions. It's very simple, and a lot could be done to make it more attractive. But it works.
 
 Once enough data is gathered here, I'll do some analysis and prediction to do clever stuff.
