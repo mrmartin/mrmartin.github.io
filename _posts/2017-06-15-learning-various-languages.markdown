@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Learning Various Languages"
-date:   2017-15-06 18:10:30 +0100
+date:   2017-06-15 18:10:30 +0100
 categories: computers
 ---
 
@@ -15,6 +15,6 @@ I can then compare the success of a given network across these different languag
 
 ![Long Short Term Memory network]({{ site.url }}/images/all_languages_HP_1_LSTM_3_layer.png)
 
-What can we conclude from this? Well, it looks like getting the next character right in Indonesian and Portuguese is easier than other languages, especially Arabic. That's an impressive conclusion, given that I have not manually had to look at how those languages work at all. Slovanic languages are harder than Germanic and Celtic, as expected given their declinations and gender modifiers.
+What can we conclude from this? Well, it looks like getting the next character right in Indonesian and Portuguese is easier than other languages, especially Arabic. That's an impressive conclusion, given that I have not manually had to look at how those languages work at all. Slavonic languages are harder than Germanic and Celtic, as expected given their declinations and gender modifiers.
 
 [click the link for more details](https://www.overleaf.com/read/jfgvbyvmttph)
