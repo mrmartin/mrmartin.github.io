@@ -8,6 +8,8 @@ categories: computing
 
 Style transfer using deep neural networks does the following: you select a photo, a painting, and the style of the painting is transferred into the photo. Unfortunately, this usually doesn't work very well, producing unintented and unexpected results.
 
+![Example of style transfer]({{ site.url }}/images/433_combined.jpg)
+
 I thought it would be interesting to automatically find paintings for a give photo. If the subject matter is similar, perhaps style transfer could work well. [Here is what I did](http://www.fit.vutbr.cz/~kolarmartin/mine/style.html)
 
 [And here are the results!](http://www.fit.vutbr.cz/~kolarmartin/mine/full_table.html)
