@@ -15,3 +15,5 @@ I thought it would be interesting to automatically find paintings for a give pho
 [And here are the results!](http://www.fit.vutbr.cz/~kolarmartin/mine/full_table.html)
 
 Depending on your expectations, you may agree that most of the results also aren't great. It will be interesting to explore this topic further.
+
+edit: I've set up my online photo albums on google photos. No cost, no limit, smart browsing. [Like this](https://goo.gl/photos/nMcuK4KZWNzJrHWs6)
