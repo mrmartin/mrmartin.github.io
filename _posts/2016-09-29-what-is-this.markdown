@@ -18,3 +18,5 @@ In an hour or so, a relatively experience github user can set this up. Here's wh
 
 
 For my next trick, I'd like to set up a photo gallery, and edit the about page to contain some personal info, like a list of publications, online references, favourite books and so on.
+
+edit: I've set up my online photo albums on google photos. No cost, no limit, smart browsing. [Like this](https://goo.gl/photos/nMcuK4KZWNzJrHWs6)
