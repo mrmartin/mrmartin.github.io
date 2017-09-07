@@ -12,6 +12,7 @@ permalink: /links/
   - [JustEvidence](http://justevidence.org/)
   - [Street Violence Map](http://streetviolence.org/) (defunct)
   - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop
+  - [Information for visitors to Brno](http://vgs-it.fit.vutbr.cz/about-brno/) I created for the seminar series VGS-IT
   
 * My Hobbies
   - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
