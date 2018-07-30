@@ -13,6 +13,7 @@ permalink: /links/
   - [Street Violence Map](http://streetviolence.org/) (defunct)
   - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop
   - [Information for visitors to Brno](http://vgs-it.fit.vutbr.cz/about-brno/) I created for the seminar series VGS-IT
+  - [Subtitlecat.com](http://subtitlecat.com), a cat that translates movie subtitles
   
 * My Hobbies
   - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
