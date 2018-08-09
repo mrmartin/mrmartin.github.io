@@ -36,3 +36,10 @@ permalink: /links/
 
 * Paragliding
   - [Quick-release packing for paraglider](https://justacro.com/files/tricks/how2pack_my_d-bag.pdf)
+
+* Space Innovation Competitions
+  - [Space Exploration Masters](https://www.space-exploration-masters.com/)
+  - [Innospace Masters](https://www.innospace-masters.de/competition/?lang=en) (Nov 18 - Feb 19 Submission phase)
+  - [Coparnicus Masters](https://www.copernicus-masters.com/challenges/)
+  - [EOVation Masters](http://www.esa-bic.cz/index.php/eovation/)
+  - [European Satelite Navigation Competition](https://www.esnc.eu/)
