@@ -15,7 +15,9 @@ While the news may be written in a neutral, informative way, the choice of which
 
 The purpose of this article is to formalize a need for ethical recommender systems in an era of constant information overload. Search tools, just like newspapers, must strive for neutrality, but there are new hurdles that newspapers didn't have to consider. While this article specifically considers news, the same ought to be applied to any piece of information that reaches us through selection algorithms. Scientific articles can be sifted with the same methodology, informative photos and videos, and even pure entertainement, like Dilbert jokes.
 
-The first problem is "Affecting opinion". While chosing which news to display, a neutral recommender must give the explicit option of articles in line with my views, but also the average view, and the opposite view. The concept is similar to understanding the market depth chart, which shows the current price of a stock being traded, and also a histogram of standings on either side. 
+The first problem is "Affecting opinion". While chosing which news to display, a neutral recommender must give the explicit option of articles in line with my views, but also the average view, and the opposite view. The concept is similar to understanding the market depth chart, which shows the current price of a stock being traded, and also a histogram of standings on either side.
+
+![Agreement Depth Chart]({{ site.url }}/images/depth_chart.png)
 
 The second problem is "Hearing what you want to hear", also called the social bubble. This happens by displaying selective views on a given event. Given a specific news topic, a neutral recommender must not give what we may want to hear (as an information search engine does), but rather give us a representative spectrum with regard to public opinion.
 
