@@ -8,7 +8,7 @@ categories: science math
 
 The blockchain is an incredible system: a unified ledger of verified transactions based on anonymous computations. With the opportunities this creates, there are also downsides, which in turn lead to ideas for improvement. Below are three ideas on how the blockchain could be extended which I haven't seen elsewhere.
 
-1)A cryptocurrency where transactions are verified by the buyer and seller directly
+# A cryptocurrency where transactions are verified by the buyer and seller directly
 
 A pitfall of bitcoin is the length of time it takes to verify a transaction, often causing me to wait in the pub and get another drink long after I've paid. Wouldn't it be great if we could simply use the public-private key pair to validate transactions directly on the transaction device? But the valuable de-centralization of cryptocurrencies comes at a cost: majority voting. If there isn't a commong ledger, how does the recipient know that the coin hasn't been spent already?
 
@@ -16,7 +16,7 @@ What if the buyer and seller created a public key referring to their transaction
 
 This would resolve the second problem which comes with confirmation by blocks: transaction cost. If the transaction is quickly performed and confirmed by the parties performing it, there is a reduced requirement for the common ledger, so the transaction cost will go down.
 
-2)A cryptocurrency computing a useful program instead of hashes
+# A cryptocurrency computing a useful program instead of hashes
 
 1% of the world's electricity goes into calculating 50 billion billion hashes per second[1](#power). By comparing apples to oranges we can say estimate equivalence to 100 billion billion floating point operations per second, or 100'000 petaflops, compared to 200 petaflops for the world's currenly most powerful supercomputer, which someone was willing to pay 300 million dollars to put together. Wouldn't it be neat to make use of the computational power of 5'000 such computers for something beneficial to us all?
 
@@ -26,7 +26,7 @@ Hashes are being used now in much the same way: the blockchain defines a problem
 
 If we can only agree on a way to do this, the world's smartest computer engineers would be working together to compute hard science for the benefit of mankind.
 
-3)A cryptocurrency computing generic programs for money
+# A cryptocurrency computing generic programs for money
 
 Just as in the second idea, this addresses the waste of computational resources that goes into calculating hashes. But here, let's consider a more de-centralized perspective, and one that generates profit.
 
