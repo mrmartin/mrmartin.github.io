@@ -32,7 +32,7 @@ Just as in the second idea, this addresses the waste of computational resources 
 
 It's AWS on the blockchain. Instead of getting pittance for mining new coins and performing transactions, the miners would perform arbitrary computation for a sizeable fee. For this idea too, the numbers are very much in the favour: Paople pay Amazon 0.1$ per hour per GPU, about the same as miners get for running a GPU at home, so transforming the blockchain to perform useful computations would double the miners' revenue.
 
-Just as anyone can send transactions into the bitcoin framework, programs which follow strict rules would be uploaded, together with a reward. Miners would try them, and the one succeeding would get the payoff. The result would be hashed, verified, and integrated into the ledger.
+Just as anyone can send transactions into the bitcoin framework, programs which follow strict rules would be uploaded, together with a reward. Miners would try them, and the one succeeding would get the payoff. The result would be hashed, verified, and integrated into the ledger. (Golem)[https://golem.network/] is an attempt, but I get the impression these guys don't know how to make it work.
 
 These are some ideas on future improvement of blockchain technology. While not trivially implementable, and each leading to an increase in the complexity, they would make the blockchain a whole lot more useful.
 
