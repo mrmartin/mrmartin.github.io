@@ -18,7 +18,7 @@ This would resolve the second problem which comes with confirmation by blocks: t
 
 # A cryptocurrency computing a useful program instead of hashes
 
-1% of the world's electricity goes into calculating 50 billion billion hashes per second[1](#power). By comparing apples to oranges we can say estimate equivalence to 100 billion billion floating point operations per second, or 100'000 petaflops, compared to 200 petaflops for the world's currenly most powerful supercomputer, which someone was willing to pay 300 million dollars to put together. Wouldn't it be neat to make use of the computational power of 5'000 such computers for something beneficial to us all?
+1% of the world's electricity goes into calculating 50 billion billion hashes per second<sup>[1](#power)</sup>. By comparing apples to oranges we can say estimate equivalence to 100 billion billion floating point operations per second, or 100'000 petaflops, compared to 200 petaflops for the world's currenly most powerful supercomputer, which someone was willing to pay 300 million dollars to put together. Wouldn't it be neat to make use of the computational power of 5'000 such computers for something beneficial to us all?
 
 One way of doing this is to create a central authority which distributes the problems, someone like [iana](https://www.iana.org/), but for computational resources. We could distribute programs that fold proteins, simulate the big bang, or reconstruct veins in the human body, and require their computation to verify the ledger.
 
