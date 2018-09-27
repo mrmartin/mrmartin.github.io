@@ -15,6 +15,3 @@ Imagine the following experimental setup: for each partcicipant, ask how they fe
 Utterances can be mapped to an embedding which separates meaning from expression, and the way a phrase has been expressed can then be mapped to the happy/sad information we started with. This way, through established methods of machine learning and natural language processing, we may extract the emotional information carried by subtleties in speech. And whether we are happy or sad is just the first of many dimensions.
 
 I believe that this framework can be extended to help us analyze a lot of what's happening in the human mind beyond the objective information we communicate, and beyond what we ourselves know we are expressing to others. It can take us away from a sensible but ungrounded theory of psychology, where a list of words is associated to a state of mind because Jung hypothesized it is so, and into the realm of quantifiable science, where the words for a given state of mind can be correlated to the state of mind with a grounding in data and a verifiable p-value.
-
-<sup>[1](#power)</sup>
-<a name="power">1</a>: [US Senate Hearing on Energy Efficiency of Blockchain and Similar Technologies](https://www.energy.senate.gov/public/index.cfm/files/serve?File_id=8A1CECD1-157C-45D4-A1AB-B894E913737D)
