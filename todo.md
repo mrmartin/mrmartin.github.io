@@ -9,7 +9,7 @@ This is my long-term to-do list. Tasks are ordered by importance. Subtasks are o
 
 * subtitlecat.com
   1. train https://github.com/tensorflow/tensor2tensor#translation with a few languages
-  2. run in tensorflow.js on subtitlecat.com
+  2. run in tensorflow.js on subtitlecat.com, like https://github.com/tensorflow/tfjs-examples/tree/master/translation
   3. language detection
   4. train for all popular languages
 
