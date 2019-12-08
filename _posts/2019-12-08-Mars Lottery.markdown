@@ -21,7 +21,7 @@ Anyone will be able to make a donation of any amount, and will receive the follo
 * Donations can also be made with forefited rights, gifted, or bequeathed. A participation's identity can be public or anonymous
 * Interest on held donations is generated via investments insured for 100% of the held sum
 
-We are not like Mars one<sup>[1](#myfootnote1)</sup>. We are the Mars Lottery, a ticket to Mars with SpaceX, NASA, or whoever really takes humans to Mars.
+We are not like Mars one<sup>[1](#forbes)</sup>. We are the Mars Lottery, a ticket to Mars with SpaceX, NASA, or whoever really takes humans to Mars.
 
 So far, the Mars Lottery has accrued 150$. Contact me on martaskolda@gmail.com to enter the lottery.
 
@@ -29,4 +29,4 @@ Let's go to Mars
 ![Mars Lottery]({{ site.url }}/images/mars.jpg)
 
 
-<a name="myfootnote1">1</a>: Goodbye Mars One, The Fake Mission To Mars That Fooled The World https://www.forbes.com/sites/jonathanocallaghan/2019/02/11/goodbye-mars-one-the-fake-mission-to-mars-that-fooled-the-world/#2b7738e92af5
+<a name="forbes">1</a>[Goodbye Mars One, The Fake Mission To Mars That Fooled The World](https://www.forbes.com/sites/jonathanocallaghan/2019/02/11/goodbye-mars-one-the-fake-mission-to-mars-that-fooled-the-world/#2b7738e92af5)
