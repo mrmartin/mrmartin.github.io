@@ -17,9 +17,16 @@ Anyone will be able to make a donation of any amount, and will receive the follo
 * Space exploration is strenuous, and the organisation performing the mission will perform physical and psychological tests. If the selected person does not pass them, the lottery is drawn again. This process continues until a candidate is deemed fit
 * It is this organisation's duty to make its intentions known to all organisations with the possibility of running a manned mission to Mars. The money will be made available only to an organisation which runs the mission
 * To decide on a plan of action in unforseen situations, a referendum will be held with all lottery subscribers, with vote proportional to the donated sum. Only if 75% agree will action be taken
-* The donated amount will be adjusted by year of donation, to account for change in value of money
+* Weights and probabilities will be adjusted by year of donation, to account for change in value of the donated amount 
+* Donations can also be made with forefited rights, gifted, or bequeathed. A participation's identity can be public or anonymous
+* Interest on held donations is generated via investments insured for 100% of the held sum
 
-This is not like Mars one, or any other such scam to take optimistic people's money.
+We are not like Mars one<sup>[1](#myfootnote1)</sup>. We are the Mars Lottery, a ticket to Mars with SpaceX, NASA, or whoever really takes humans to Mars.
+
+So far, the Mars Lottery has accrued 150$. Contact me on martaskolda@gmail.com to enter the lottery.
 
 Let's go to Mars
-![Belarus]({{ site.url }}/images/belarus.jpg)
+![Mars Lottery]({{ site.url }}/images/mars.jpg)
+
+
+<a name="myfootnote1">1</a>: Goodbye Mars One, The Fake Mission To Mars That Fooled The World https://www.forbes.com/sites/jonathanocallaghan/2019/02/11/goodbye-mars-one-the-fake-mission-to-mars-that-fooled-the-world/#2b7738e92af5
