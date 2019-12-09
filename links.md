@@ -5,19 +5,20 @@ permalink: /links/
 ---
 {% include analytics.html %}
 * My Work
-  - [ENIGMAtalk](http://enigmatalk.com/) app for secure text communications over insecure channels
+  - [ENIGMAtalk](http://enigmatalk.com/) app for secure text communications over insecure channels (defunct)
   - [My github page](https://github.com/mrmartin)
   - [My publications at Brno University of Technology](http://www.fit.vutbr.cz/~kolarmartin/pubs.php)
   - [My publications at the University of Warwick](http://wrap.warwick.ac.uk/view/author_id/22745.html)
   - [JustEvidence](http://justevidence.org/)
   - [Street Violence Map](http://streetviolence.org/) (defunct)
-  - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop
+  - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop (defunct)
   - [Information for visitors to Brno](http://vgs-it.fit.vutbr.cz/about-brno/) I created for the seminar series VGS-IT
   - [Subtitlecat.com](http://subtitlecat.com), a cat that translates movie subtitles
   
 * My Hobbies
   - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
   - [Live Band Recordings](https://soundcloud.com/nejistotatrolejbusu)
+  - [The Hard Way](https://www.amazon.com/Hard-Way-Martin-Kol%C3%A1%C5%99/dp/1704225442) The book I wrote
 
 * Space
   - [Chinese Research in Bioregenarative Life Support Systems](https://www.researchgate.net/profile/Hong_Liu38)
