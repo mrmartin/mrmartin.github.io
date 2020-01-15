@@ -2,7 +2,7 @@
 layout: post
 title:  "Effective Cooperative"
 date:   2020-01-15 18:10:30 +0100
-categories: social, business
+categories: social business
 ---
 
 {% include analytics.html %}
