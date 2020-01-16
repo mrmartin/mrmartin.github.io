@@ -19,3 +19,5 @@ Inspired by the pre-commercial success of StackOverflow, github, and reddit, ima
 People can pitch in, suggest edits, and discuss. The system is set up to enable personal development, public initiatives, and a sense of community. The exchange of money is not implicit to the system, but still allowed.
 
 The system could be built from a forum system, or a StackOverflow clone. The important elements will be voting, reputation points, and good will.
+
+Bonus: effectivecoop.com is available
