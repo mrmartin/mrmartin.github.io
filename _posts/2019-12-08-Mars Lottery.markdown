@@ -40,3 +40,4 @@ What we need to do next is
 <a name="forbes">1</a>[Forbes: Goodbye Mars One, The Fake Mission To Mars That Fooled The World](https://www.forbes.com/sites/jonathanocallaghan/2019/02/11/goodbye-mars-one-the-fake-mission-to-mars-that-fooled-the-world/#2b7738e92af5)
 <a name="ifl">2</a>[Mars One Finalist Announces That It's All A Scam](https://www.iflscience.com/space/whats-going-mars-one/)
 <a name="heavy">3</a>[‘Mars One’ Is A Scam? 5 Fast Facts You Need to Know](https://heavy.com/news/2015/03/mars-one-scam-scheme-fraud-money/)
+<a name="comic">relevant comic</a>[Mars needs me](http://www.poorlydrawnlines.com/comic/six-things/)
