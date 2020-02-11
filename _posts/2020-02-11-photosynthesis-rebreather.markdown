@@ -15,3 +15,5 @@ A human consumes 550 liters of oxygen per day (https://health.howstuffworks.com/
 The efficiency of photosynthesis is up to 26% (https://www.britannica.com/science/photosynthesis/Energy-efficiency-of-photosynthesis), so the 14m2 would have to receive sizeable energy in the form of light.
 
 Perhaps the potassium superoxide method is most realistic after all. But keeping plants in a nuclear sub could work well, too.
+
+This is already well answered here: https://www.quora.com/How-much-oxygen-does-a-typical-household-plant-produce?share=1
