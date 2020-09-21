@@ -44,6 +44,3 @@ permalink: /links/
   - [Coparnicus Masters](https://www.copernicus-masters.com/challenges/)
   - [EOVation Masters](http://www.esa-bic.cz/index.php/eovation/)
   - [European Satelite Navigation Competition](https://www.esnc.eu/)
-
-* webcam
-{% include video.html %}
