@@ -11,11 +11,11 @@ permalink: /about/
 
 ## Abstract
 
-I'm a Data Scientist, Scientist, Artist, Musician, Pilot, Entrepreneur, and Father of three.
+I'm a Data Scientist, Scientist, Artist, Musician, Pilot, Entrepreneur, and Father of three. I invent complex AI solutions for business problems, manage technical development, and communicate well at all levels.
 
 ## Motivation
 
-I like to solve challenging problems that move humanity forward, with the ultimate goals of well-being on Earth, exploration of Space, making us of the Fundamentals of physics, and understanding the Foundations of thought.
+I like to solve challenging problems that move humanity forward, with the ultimate goals of well-being on Earth, exploration of Space, making use of the Fundamentals of physics, and understanding the Foundations of thought.
 
 ## Hypothesis
 
@@ -31,4 +31,4 @@ I have been actively working in Machine Learning since 2010, when I received my 
 
 ## Prior Work
 
-I was born in Brno, Czechoslovakia, and grew up in France, Montreal, London (Canada), before studying in London (England). 
+I was born in Brno, Czechoslovakia, and grew up in France, Montreal, London (Canada), before studying in London (England). I love books in Science Fiction (Surface Detail, R.U.R., The Three Body Problem, Zones of Thought), in Philosophy
