@@ -19,6 +19,7 @@ permalink: /links/
   - The 1001 film dataset, where films are aligned with their scripts
   - [FFHQ features](https://github.com/DCGM/ffhq-features-dataset), a dataset of faces with known features
   - [Basepack](https://github.com/mrmartin/basepack), a reference dataset and method for irregular polytope packing
+  - [sharedproperty.co.uk](https://www.sharedproperty.co.uk), an estate agent that lets people purchase parts of properties
   
 * My Hobbies
   - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
