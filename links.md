@@ -14,11 +14,20 @@ permalink: /links/
   - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop (defunct)
   - [Information for visitors to Brno](http://vgs-it.fit.vutbr.cz/about-brno/) I created for the seminar series VGS-IT
   - [Subtitlecat.com](http://subtitlecat.com), a cat that translates movie subtitles
+  - [The gravity well pump](https://youtu.be/EFHTnC5J9QA), a rocketless method for bringing material to orbit
+  - Deep stegranography, my patent
+  - The 1001 film dataset, where films are aligned with their scripts
+  - [FFHQ features](https://github.com/DCGM/ffhq-features-dataset), a dataset of faces with known features
+  - [Basepack](https://github.com/mrmartin/basepack), a reference dataset and method for irregular polytope packing
   
 * My Hobbies
   - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
   - [Live Band Recordings](https://soundcloud.com/nejistotatrolejbusu)
   - [The Hard Way](https://www.amazon.com/Hard-Way-Martin-Kol%C3%A1%C5%99/dp/1704225442) The book I wrote
+  - The volumetric display
+  - The folding wheel
+  - [Mars Coop](https://marscoop.com), the cooperative that helps people finance their trip to Mars
+  - The speaking orchestra
 
 * Space
   - [Chinese Research in Bioregenarative Life Support Systems](https://www.researchgate.net/profile/Hong_Liu38)
