@@ -7,8 +7,6 @@ permalink: /links/
 * My Work
   - [ENIGMAtalk](http://enigmatalk.com/) app for secure text communications over insecure channels (defunct)
   - [My github page](https://github.com/mrmartin)
-  - [My publications at Brno University of Technology](http://www.fit.vutbr.cz/~kolarmartin/pubs.php)
-  - [My publications at the University of Warwick](http://wrap.warwick.ac.uk/view/author_id/22745.html)
   - [JustEvidence](http://justevidence.org/)
   - [Street Violence Map](http://streetviolence.org/) (defunct)
   - [HOJNO.CZ](http://www.hojno.cz/), my electronics shop (defunct)
@@ -20,6 +18,11 @@ permalink: /links/
   - [FFHQ features](https://github.com/DCGM/ffhq-features-dataset), a dataset of faces with known features
   - [Basepack](https://github.com/mrmartin/basepack), a reference dataset and method for irregular polytope packing
   - [sharedproperty.co.uk](https://www.sharedproperty.co.uk), an estate agent that lets people purchase parts of properties
+
+* My Research
+  - [PhD in Computer Vision with Active Learning](https://www.fit.vut.cz/study/phd-thesis/754/.en)
+  - [My publications at Brno University of Technology](https://www.vut.cz/en/people/martin-kolar-149818/publikace#navigace-vizitka)
+  - [My publications at the University of Warwick](http://wrap.warwick.ac.uk/view/author_id/22745.html) 
   
 * My Hobbies
   - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
