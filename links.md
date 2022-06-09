@@ -29,6 +29,7 @@ permalink: /links/
   - The folding wheel
   - [Mars Coop](https://marscoop.com), the cooperative that helps people finance their trip to Mars
   - The speaking orchestra
+  - [What do you want?](https://www.spreadshirt.com/shop/design/co+chces+mens+premium+t-shirt-D629dc0dd62b53443db14695b?sellable=5alkJRzeVpCEml5JAL25-812-7&view=1_1147) - t-shirt design, in Czech
 
 * Space
   - [Chinese Research in Bioregenarative Life Support Systems](https://www.researchgate.net/profile/Hong_Liu38)
