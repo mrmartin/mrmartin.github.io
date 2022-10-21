@@ -37,6 +37,7 @@ permalink: /links/
 
 * Space
   - [Chinese Research in Bioregenarative Life Support Systems](https://www.researchgate.net/profile/Hong_Liu38)
+  - [Russian Research in Self-contained Ecosystems](https://www.amazon.com/dp/082294474X)
   
 * Computing
   - [Item-based collaborative filtering](http://www.cs.carleton.edu/cs_comps/0607/recommend/recommender/itembased.html)
