@@ -31,4 +31,4 @@ I have been actively working in Machine Learning since 2010, when I received my 
 
 ## Prior Work
 
-I was born in Brno, Czechoslovakia, and grew up in France, Montreal, London (Canada), before studying in London (England). I love books in Science Fiction (Surface Detail, R.U.R., The Three Body Problem, Zones of Thought), in Philosophy
+I was born in Brno, Czechoslovakia, and grew up in France, Montreal, London (Canada), before studying in London (England). I love books in Science Fiction (Surface Detail, R.U.R., The Three Body Problem, Zones of Thought), in Philosophy, and all investigations into the mind, body, and provable truths of the universe.
