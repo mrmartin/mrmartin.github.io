@@ -7,7 +7,7 @@ permalink: /about/
 
 ### Martin Kolar PhD et PhD
 
-![me in 2021]({{ site.url }}/images/profile_VUT.jpeg)
+![me in 2021]({{ site.url }}/images/martin_portrait_dalle.gif)
 
 ## Abstract
 
