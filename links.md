@@ -35,9 +35,12 @@ permalink: /links/
   - [What do you want?](https://www.spreadshirt.com/shop/design/co+chces+mens+premium+t-shirt-D629dc0dd62b53443db14695b?sellable=5alkJRzeVpCEml5JAL25-812-7&view=1_1147) - t-shirt design, in Czech
   - [Custom robot bit holder](https://www.thingiverse.com/thing:4641274) - 3D printable part for robots, designed and tested for the CR 168 robot from L&K robotics. The attachment fits a standard size servo, and holds any bit magnetically, like electric screwdrivers do.
 
-* Space
+* Space exploration
   - [Chinese Research in Bioregenarative Life Support Systems](https://www.researchgate.net/profile/Hong_Liu38)
-  - [Russian Research in Self-contained Ecosystems](https://www.amazon.com/dp/082294474X)
+  - [Russian Research in Self-contained Ecosystems](http://www.ibp.ru/science/bios3.php)
+  - [Manmade Closed Ecological Systems](https://www.amazon.com/Man-Made-Closed-Ecological-Systems-Institute/dp/0415299985)
+  - [Demographics anytime anywhere](https://www.populationpyramid.net)
+  - [NASA interactive skymap](https://www.nasa.gov/content/explore-our-universe-skymap)
   
 * Computing
   - [Item-based collaborative filtering](http://www.cs.carleton.edu/cs_comps/0607/recommend/recommender/itembased.html)
