@@ -53,6 +53,8 @@ permalink: /links/
   - [Royal Enfield Diesel info and parts](http://www.pricepartmotorcycles.co.uk/page_2219102.html)
   - [Biograf 16](http://kino.postreh.com/)
   - [8bitpeoples music label](http://www.8bitpeoples.com/)
+  - [my mission to record everything my browser sees](https://softwarerecs.stackexchange.com/questions/83750/how-to-record-browser-content) locally, in a searchable way [link1](https://www.cnet.com/tech/services-and-software/load-cached-pages-when-offline-in-chrome/)
+  - [Tesla's Wireless Power](https://teslasciencecenter.org/teslas-wireless-power/)
 
 * Paragliding
   - [Quick-release packing for paraglider](https://justacro.com/files/tricks/how2pack_my_d-bag.pdf)
@@ -63,3 +65,18 @@ permalink: /links/
   - [Coparnicus Masters](https://www.copernicus-masters.com/challenges/)
   - [EOVation Masters](http://www.esa-bic.cz/index.php/eovation/)
   - [European Satelite Navigation Competition](https://www.esnc.eu/)
+
+* Interesting reads and listens
+  - [The Opposite of Death is Youth](https://tomhyde.substack.com/p/the-opposite-of-death-is-youth) by Tom Hyde
+  - [The Music of Ancient Rome](https://maryanntedstoneglover.bandcamp.com/album/the-music-of-ancient-rome)
+  - [Physics of the Early Universe](http://web.archive.org/web/20221026094211/abyss.uoregon.edu/~js/cosmo/lectures/lec20.html)
+  - [Ilya Sutskever on AIs understanding](https://podcast.clearerthinking.org/episode/128/chatgpt-co-creator-ilya-sutskever-what-if-anything-do-ais-understand/)
+  - [Wine and Water](https://en.wikisource.org/wiki/Wine_and_Water_(Chesterton)) by Chesterton
+  - [My Goodreads account](https://www.goodreads.com/review/list/94757554) not complete
+  - [On American Underconsumption Economists](https://www.hetwebsite.net/het/profiles/foster.htm)
+
+* Longevity
+  - [VitaDAO - funding for longevity research](https://www.vitadao.com) particularly interested in moonshots
+
+* Useful tools
+  - [Upload a paper, highlight confusing text, get an explanation](https://www.explainpaper.com)
