@@ -48,6 +48,8 @@ permalink: /links/
   - [HBC - Hierarchical Bayes Compiler](https://web.archive.org/web/20110315150421/http://www.cs.utah.edu/~hal/HBC/) (defunct)
   - [BOB signal processing and machine learning toolbox](https://www.idiap.ch/software/bob/)
   - [element-wise GPU operations with Matlab](https://www.mathworks.com/help/distcomp/run-element-wise-matlab-code-on-a-gpu.html)
+  - [Natural Language Inference benchmarks](https://paperswithcode.com/task/natural-language-inference/latest)
+  - [Dataset of Open Domain Qualitative Relationships](https://allenai.org/data/quartz)
   
 * Technology for fun
   - [Royal Enfield Diesel info and parts](http://www.pricepartmotorcycles.co.uk/page_2219102.html)
@@ -55,6 +57,9 @@ permalink: /links/
   - [8bitpeoples music label](http://www.8bitpeoples.com/)
   - [my mission to record everything my browser sees](https://softwarerecs.stackexchange.com/questions/83750/how-to-record-browser-content) locally, in a searchable way [link1](https://www.cnet.com/tech/services-and-software/load-cached-pages-when-offline-in-chrome/)
   - [Tesla's Wireless Power](https://teslasciencecenter.org/teslas-wireless-power/)
+  - [Commercial Research in Lithium Air batteries](https://polyplus.com/product-pipeline/)
+  - [Paper made of Carbon Nanotubes](https://www.msesupplies.com/products/conductive-carbon-paper-200-mm-l-x-200-mm-w-x-0-19-mm-t-for-battery-fuel-cell-and-supercapacitor-research?variant=39365388927034)
+  - [Robots to dig tunnels](https://www.hypertunnel.co.uk)
 
 * Paragliding
   - [Quick-release packing for paraglider](https://justacro.com/files/tricks/how2pack_my_d-bag.pdf)
