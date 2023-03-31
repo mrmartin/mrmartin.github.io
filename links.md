@@ -50,6 +50,8 @@ permalink: /links/
   - [element-wise GPU operations with Matlab](https://www.mathworks.com/help/distcomp/run-element-wise-matlab-code-on-a-gpu.html)
   - [Natural Language Inference benchmarks](https://paperswithcode.com/task/natural-language-inference/latest)
   - [Dataset of Open Domain Qualitative Relationships](https://allenai.org/data/quartz)
+  - [MATH Mathematical Problem Solving Dataset](https://github.com/hendrycks/math)
+  - [OpenAI evals](https://github.com/openai/evals)
   
 * Technology for fun
   - [Royal Enfield Diesel info and parts](http://www.pricepartmotorcycles.co.uk/page_2219102.html)
@@ -60,6 +62,7 @@ permalink: /links/
   - [Commercial Research in Lithium Air batteries](https://polyplus.com/product-pipeline/)
   - [Paper made of Carbon Nanotubes](https://www.msesupplies.com/products/conductive-carbon-paper-200-mm-l-x-200-mm-w-x-0-19-mm-t-for-battery-fuel-cell-and-supercapacitor-research?variant=39365388927034)
   - [Robots to dig tunnels](https://www.hypertunnel.co.uk)
+  - [Solid Rocket Propulsion](https://engineering.purdue.edu/AAE/research/propulsion/Info/rockets/solids)
 
 * Paragliding
   - [Quick-release packing for paraglider](https://justacro.com/files/tricks/how2pack_my_d-bag.pdf)
@@ -79,9 +82,21 @@ permalink: /links/
   - [Wine and Water](https://en.wikisource.org/wiki/Wine_and_Water_(Chesterton)) by Chesterton
   - [My Goodreads account](https://www.goodreads.com/review/list/94757554) not complete
   - [On American Underconsumption Economists](https://www.hetwebsite.net/het/profiles/foster.htm)
+  - [Czechs in Argentina](https://cs.wikipedia.org/wiki/Češi_v_Argentině)
+  - [Heraclitus](https://www.philosophy.gr/presocratics/heraclitus.htm)
+  - [Inspirace Baťa](https://www.inspiracebata.cz)
+  - [2600](https://2600.com)
+  - [Somebody's reading list](https://www.goodreads.com/list/show/165499.Neoreactionary_Reading_List)
+  - [The Continuum Hypothesis](https://joeldavidhamkins.substack.com/p/the-continuum-hypothesis) by Joel David Hamkins
+  - [Le livre du chevalier de La Tour Landry pour l'enseignement de ses filles](https://www.gutenberg.org/ebooks/68885)
+  - [Soviet Spacecraft Pennants](http://mentallandscape.com/V_Pennants.htm)
+  - [Outer Space Treaty](https://en.wikipedia.org/wiki/Outer_Space_Treaty) and the fact that I didn't sign
 
 * Longevity
   - [VitaDAO - funding for longevity research](https://www.vitadao.com) particularly interested in moonshots
+  - [Immune Engineering](https://centuryofbio.substack.com/p/immune-engineering) by Elliot Hershberg
 
 * Useful tools
   - [Upload a paper, highlight confusing text, get an explanation](https://www.explainpaper.com)
+  - [Community annotated papers](https://web.hypothes.is)
+  - [TryLeap to generate variants of photos of yourself](https://colab.research.google.com/drive/1v45UprB-fzSeWk4wTnYJEx4dEeW2DnYw)
