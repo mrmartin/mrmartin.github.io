@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Harnessing the Power of Lightning: A Glimpse into the Future of Energy"
-date:   2023-09-04 18:10:30 +0100
+date:   2023-09-04 12:10:30 +0100
 categories: technology, energy
 ---
 
