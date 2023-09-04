@@ -19,9 +19,9 @@ Lightning strikes are a frequent occurrence in nature, with an estimated 44 (± 
 
 Lightning rods, in their simplicity and effectiveness, have historically served as protective structures against lightning strikes. The energy \(E\) in a lightning strike can be quantified using the formula:
 
-\[
+$$
 E = \frac{1}{2} C V^2
-\]
+$$
 
 where:
 - \(E\) is the energy
@@ -36,9 +36,9 @@ One promising approach, conceptualized by Martin, involves channeling the energy
 
 The energy transfer in this process can be described by the equation:
 
-\[
+$$
 Q = mc\Delta T
-\]
+$$
 
 where:
 - \(Q\) is the heat energy
@@ -52,9 +52,9 @@ Another approach, also envisioned by Martin, entails the incorporation of large 
 
 The speed limits of energy transfer in this scenario can be delineated by the RC time constant, represented by:
 
-\[
+$$
 \tau = RC
-\]
+$$
 
 where:
 - \(\tau\) is the time constant
