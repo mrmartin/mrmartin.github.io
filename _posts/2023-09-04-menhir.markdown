@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Postup Při Budování Menhiru v ČR: Zkušenosti a Poznámky"
+date:   2023-09-04 15:10:30 +0100
+categories: architecture, engineering, geology
+---
+
+{% include analytics.html %}
+
+V České Republice jsem nenašel lom, který umí vytežit kámen větší než asi 1.5x1x1m, s výjimkou těžby sochařského mramoru, který je příliš drahý. Oslovil jsem asi deset lomů a jeden jsem navštívil, konkrétně betonárnu Olbramovice.
+
+### Komunikace s Prodejci a Geologickou Službou
+
+Marek K. ze Slezska prodává kameny až 4.5 metru vysoké, což bylo diskutováno přes WhatsApp. Kromě toho jsem se poptal na volně ležící kámen u České geologické služby.
+
+### Logistika: Přeprava a Nástroje
+
+Pronájem jeřábu s nosností přes 200 tun není problém. Firma DAN-CZECH SPECIAL TRANSPORT v minulosti převezla náklad vážící 103 tun na 13-ti napravovém vozidle. 
+
+### Pozemek a Lokalita
+
+Pozemek vedle Obřanského hradiska je momentálně na prodej. Je třeba poznamenat, že v ČR leží různě vhodné kameny, ale znám jen takové, které jsou v chráněných oblastech.
