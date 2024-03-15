@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Automate Government"
-date:   2023-03-15 15:10:30 +0100
+date:   2024-03-15 15:10:30 +0100
 categories: philosophy, politics, freedom
 ---
 
