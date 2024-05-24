@@ -7,52 +7,27 @@ categories: technology, programming, media
 
 {% include analytics.html %}
 
-# XScreenSaver Livestream Setup
+I first saw xscreensaver on a researcher's laptop in 2003, when I was 14, and I loved it so much I installed linux. I've been running linux ever since, I got a few degrees in CS, and I'm still a huge fan.
 
-I first saw XScreenSaver on a researcher's laptop in 2003, when I was 14, and I loved it so much I installed Linux. I've been running Linux ever since, got a few degrees in Computer Science, and I'm still a huge fan.
+How can people see it today, in a platform independent way? In an effort to make the screensaver easily available, I thought it would be neat to create a "livestream", and here are the steps:
 
-## Viewing XScreenSaver Today
+On ubuntu 22, run
+sudo vi /etc/gdm3/custom.conf
+and disable Wayland by uncommenting the line
+WaylandEnable=false
 
-How can people see it today, in a platform-independent way? In an effort to make the screensaver easily available, I thought it would be neat to create a "livestream", and here are the steps:
+Install OBS studio and connect it to youtube.
 
-### Step-by-Step Guide
+Create a virtual screen with Xephyr:
 
-1. **Disable Wayland on Ubuntu 22**
+Xephyr :2 -screen 1920x1080
 
-    Open the custom configuration file for GDM3:
-    ```sh
-    sudo vi /etc/gdm3/custom.conf
-    ```
-    Disable Wayland by uncommenting the following line:
-    ```sh
-    WaylandEnable=false
-    ```
+and run xscreensaver in it:
+DISPLAY=:2 xscreensaver
+DISPLAY=:2 xscreensaver-command -activate
 
-2. **Install OBS Studio**
+use Window Capture (XComposite) in OBS to capture the Xephyr screen without borders, and press "Start Streaming"
 
-    Install OBS Studio and connect it to your YouTube account.
+link to live stream: https://www.youtube.com/watch?v=J92IlAQKdCY
 
-3. **Create a Virtual Screen with Xephyr**
-
-    Create a virtual screen using Xephyr:
-    ```sh
-    Xephyr :2 -screen 1920x1080
-    ```
-
-4. **Run XScreenSaver in the Virtual Screen**
-
-    Start XScreenSaver in the virtual screen:
-    ```sh
-    DISPLAY=:2 xscreensaver
-    DISPLAY=:2 xscreensaver-command -activate
-    ```
-
-5. **Capture the Xephyr Screen with OBS**
-
-    Use Window Capture (XComposite) in OBS to capture the Xephyr screen without borders, and press "Start Streaming".
-
-## Livestream Link
-
-You can view the live stream here: [XScreenSaver Livestream](https://www.youtube.com/watch?v=J92IlAQKdCY)
-
-> **NB:** It's actually pretty fiddly, so setting this up to run automatically on reboot is still a challenge.
+NB: it's actually pretty fiddly, so setting this up to run automatically on reboot is still a challenge.
