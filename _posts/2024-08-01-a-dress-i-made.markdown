@@ -6,6 +6,6 @@ categories: art
 ---
 {% include analytics.html %}
 
-![The dress]({{ site.url }}/images/martina_saty_vyber/PA290039.JPG)
+![The dress]({{ site.url }}/images/saty_martina.jpg)
 
 I made this back in 2015
