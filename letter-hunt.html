@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#faf7ef">
+  <meta name="description" content="A gentle, offline letter-matching game for little learners. All capital letters, no timers, and no penalties.">
+  <title>Letter Hunt</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ddd4ff'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Arial,sans-serif' font-size='46' font-weight='bold' fill='%23332c50'%3EA%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #332c50;
+      --muted: #756e87;
+      --paper: #faf7ef;
+      --letter-font: "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { height: 100%; background: var(--paper); }
+    body {
+      margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none;
+      color: var(--ink); font-family: var(--letter-font);
+      -webkit-user-select: none; user-select: none;
+    }
+    button { font: inherit; color: inherit; touch-action: manipulation; }
+    button:focus-visible { outline: 4px solid #6b4dcc; outline-offset: 4px; }
+    button, svg { -webkit-user-drag: none; }
+    .app {
+      height: 100vh; height: 100dvh;
+      max-width: 1000px; margin: 0 auto;
+      padding: 14px 18px 0;
+      padding-top: max(14px, env(safe-area-inset-top));
+      padding-left: max(18px, env(safe-area-inset-left));
+      padding-right: max(18px, env(safe-area-inset-right));
+      padding-bottom: env(safe-area-inset-bottom);
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .toolbar { display: flex; flex: 0 0 48px; align-items: center; gap: 9px; }
+    .brand { margin: 0 auto 0 0; font-size: 17px; font-weight: 900; line-height: .98; letter-spacing: 1.4px; }
+    .brand span { display: block; }
+    .brand span:last-child { color: #8e75bd; margin-top: 5px; }
+    .score {
+      display: flex; gap: 8px; align-items: center; justify-content: center;
+      min-width: 74px; height: 44px; padding: 0 13px;
+      border-radius: 17px; background: #fff; border: 1.5px solid #eee7d8;
+      box-shadow: 0 3px 0 #ede7db; font-weight: 900; font-size: 23px;
+      font-variant-numeric: tabular-nums;
+    }
+    .score svg { width: 23px; height: 23px; color: #eba734; flex-shrink: 0; }
+    .score.pop { animation: score-pop .36s ease-out; }
+    .icon-button {
+      display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0;
+      border: 1.5px solid #e4ddcf; border-radius: 16px; background: transparent;
+      cursor: pointer;
+    }
+    .icon-button svg { width: 21px; height: 21px; pointer-events: none; }
+    .icon-button[aria-pressed="true"] { background: #e9e1f8; border-color: #d3c3ef; }
+    .icon-button:active { transform: scale(.94); }
+    .sound-on, .play-icon { display: none; }
+    #soundButton[aria-pressed="true"] .sound-on { display: block; }
+    #soundButton[aria-pressed="true"] .sound-off { display: none; }
+    #motionButton[aria-pressed="true"] .play-icon { display: block; }
+    #motionButton[aria-pressed="true"] .pause-icon { display: none; }
+    .hero {
+      flex: 0 0 auto; display: flex; flex-direction: column; align-items: center;
+      position: relative; padding: 19px 0 21px; gap: 11px;
+    }
+    .eyebrow { font-size: 11px; font-weight: 900; letter-spacing: 2px; margin: 0; color: var(--muted); }
+    .target-wrap { position: relative; }
+    .target-card {
+      width: 112px; height: 108px; display: flex; align-items: center; justify-content: center;
+      background: #e2d9fa; border: 3px solid #fff;
+      border-radius: 26px; box-shadow: 0 6px 0 #cfc0ee, 0 10px 22px #4936660a;
+      transform: rotate(-4deg); position: relative;
+    }
+    #target { font: 900 80px/1 var(--letter-font); display: block; transform: rotate(4deg); }
+    .target-card.enter { animation: target-enter .42s cubic-bezier(.2,.85,.3,1.25); }
+    .twinkle { position: absolute; color: #d6ba6a; pointer-events: none; }
+    .twinkle.one { width: 23px; height: 23px; left: -43px; top: 20px; transform: rotate(10deg); }
+    .twinkle.two { width: 15px; height: 15px; right: -38px; top: 71px; }
+    .hero-hint { margin: 1px 0 0; font-size: 10px; letter-spacing: 1.45px; font-weight: 800; color: var(--muted); }
+    .playfield {
+      flex: 1 1 auto; min-height: 0; position: relative; isolation: isolate;
+      overflow: hidden; border: 2px solid #e9e3d5; border-radius: 32px;
+      background-color: #fffdf8;
+      background-image: radial-gradient(#e7e0d2 1px, transparent 1px);
+      background-size: 25px 25px;
+      touch-action: manipulation;
+    }
+    .playfield::before {
+      content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%;
+      left: -103px; bottom: -95px; border: 25px solid #f2ecda; opacity: .6; pointer-events: none;
+    }
+    .playfield::after {
+      content: ""; position: absolute; width: 145px; height: 145px; border-radius: 50%;
+      right: -95px; top: -88px; border: 20px solid #eee7f8; opacity: .8; pointer-events: none;
+    }
+    .letter {
+      position: absolute; left: 0; top: 0; border: 0; background: none; padding: 0;
+      width: var(--size); height: var(--size); border-radius: 50%;
+      cursor: pointer; touch-action: manipulation; will-change: transform;
+      display: block; z-index: 1;
+    }
+    .bubble {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%; position: relative;
+      border-radius: 50%; background: var(--fill);
+      border: 3px solid #ffffffd9;
+      box-shadow: 0 5px 0 var(--shadow), 0 8px 12px #4432530a, inset 0 2px 0 #ffffff55;
+      font: 900 var(--font-size)/1 var(--letter-font);
+      pointer-events: none;
+    }
+    .bubble::after {
+      content: ""; position: absolute; width: 18%; height: 7%;
+      background: #ffffff70; border-radius: 50%; left: 19%; top: 12%; transform: rotate(-34deg);
+    }
+    .letter:active .bubble { transform: scale(.93); }
+    .letter.correct { z-index: 3; }
+    .letter.correct .bubble { animation: happy-bubble .6s ease-out forwards; }
+    .letter.try-again .bubble { animation: gentle-wiggle .32s ease-in-out; }
+    .letter.arrive .bubble { animation: arrive .38s ease-out both; animation-delay: var(--delay); }
+    .feedback {
+      position: absolute; left: 50%; top: 14px; z-index: 5;
+      transform: translate(-50%, -10px); opacity: 0; pointer-events: none;
+      padding: 10px 17px; border-radius: 20px; background: #fff;
+      box-shadow: 0 4px 20px #45325114; white-space: nowrap;
+      font-size: 13px; font-weight: 900; letter-spacing: 1px; color: var(--ink);
+      transition: opacity .15s, transform .2s;
+    }
+    .feedback.show { opacity: 1; transform: translate(-50%, 0); }
+    #confetti { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; }
+    .footer {
+      flex: 0 0 39px; display: flex; justify-content: center; align-items: center;
+      color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: 1.2px; text-align: center;
+    }
+    .footer svg { width: 12px; height: 12px; margin-right: 7px; color: #aa93c1; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    noscript { display: block; padding: 20px; color: #332c50; background: #fff; }
+    @keyframes target-enter {
+      0% { transform: rotate(-4deg) scale(.78); }
+      65% { transform: rotate(2deg) scale(1.06); }
+      100% { transform: rotate(-4deg) scale(1); }
+    }
+    @keyframes arrive { from { transform: scale(.76); opacity: .2; } to { transform: scale(1); opacity: 1; } }
+    @keyframes happy-bubble {
+      0% { transform: scale(1); }
+      28% { transform: scale(1.2) rotate(-7deg); }
+      55% { transform: scale(1.08) rotate(5deg); opacity: 1; }
+      100% { transform: scale(.6); opacity: 0; }
+    }
+    @keyframes gentle-wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-9deg); } 75% { transform: rotate(9deg); } }
+    @keyframes score-pop { 40% { transform: scale(1.17); } }
+    @media (min-width: 700px) and (min-height: 650px) {
+      .app { padding: 22px 32px 0; }
+      .brand { font-size: 20px; }
+      .hero { padding-top: 23px; padding-bottom: 25px; }
+      .target-card { width: 134px; height: 126px; border-radius: 30px; }
+      #target { font-size: 94px; }
+      .eyebrow { font-size: 12px; }
+      .hero-hint { font-size: 11px; }
+      .footer { flex-basis: 45px; font-size: 10px; }
+    }
+    @media (max-height: 650px) {
+      .app { padding-top: max(8px, env(safe-area-inset-top)); }
+      .hero { padding: 11px 0 15px; gap: 9px; }
+      .target-card { width: 88px; height: 82px; border-radius: 22px; }
+      #target { font-size: 62px; }
+      .hero-hint { display: none; }
+      .footer { flex-basis: 30px; font-size: 8px; }
+      .twinkle.two { top: 51px; }
+    }
+    @media (max-height: 440px) {
+      .app { padding: max(7px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(14px, env(safe-area-inset-left)); }
+      .toolbar { flex-basis: 44px; }
+      .brand { font-size: 14px; }
+      .hero { flex-direction: row; justify-content: center; gap: 20px; padding: 6px 0 11px; }
+      .target-card { width: 70px; height: 64px; border-radius: 19px; }
+      #target { font-size: 47px; }
+      .eyebrow { max-width: 85px; line-height: 1.7; font-size: 10px; }
+      .twinkle { display: none; }
+      .playfield { border-radius: 24px; }
+      .footer { flex-basis: 24px; font-size: 8px; }
+    }
+    @media (max-width: 350px) {
+      .app { padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
+      .toolbar { gap: 7px; }
+      .score { min-width: 64px; padding: 0 9px; }
+      .brand { font-size: 15px; letter-spacing: 1px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .letter.correct .bubble { opacity: .45; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" aria-label="Letter Hunt game">
+    <header class="toolbar">
+      <h1 class="brand"><span>LETTER</span><span>HUNT<span class="sr-only">: A letter matching game</span></span></h1>
+      <div class="score" id="scorePill" role="status" aria-label="Score: 0 points" aria-live="off">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.5 2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55L2.48 9.42l6.58-.96Z"/></svg>
+        <span id="score">0</span>
+      </div>
+      <button id="soundButton" class="icon-button" type="button" aria-label="Turn sound on" aria-pressed="false" title="Turn sound on">
+        <svg class="sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path d="m16 9 5 6m0-6-5 6"/></svg>
+        <svg class="sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>
+      </button>
+      <button id="motionButton" class="icon-button" type="button" aria-label="Pause floating letters" aria-pressed="false" title="Pause floating letters">
+        <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+        <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.9a1 1 0 0 1 1.5-.86l12 7.14a.95.95 0 0 1 0 1.64l-12 7.14A1 1 0 0 1 7 19.1Z"/></svg>
+      </button>
+    </header>
+    <section class="hero" aria-label="Letter to find">
+      <p class="eyebrow">FIND THIS LETTER</p>
+      <div class="target-wrap">
+        <svg class="twinkle one" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c1.5 8.5 3.5 10.5 12 12-8.5 1.5-10.5 3.5-12 12C10.5 15.5 8.5 13.5 0 12 8.5 10.5 10.5 8.5 12 0Z"/></svg>
+        <div class="target-card" id="targetCard"><span id="target" aria-hidden="true">A</span></div>
+        <svg class="twinkle two" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c1.5 8.5 3.5 10.5 12 12-8.5 1.5-10.5 3.5-12 12C10.5 15.5 8.5 13.5 0 12 8.5 10.5 10.5 8.5 12 0Z"/></svg>
+      </div>
+      <p class="hero-hint">TAP ITS FLOATING TWIN</p>
+    </section>
+    <section class="playfield" id="playfield" aria-label="Floating letters">
+      <canvas id="confetti" aria-hidden="true"></canvas>
+      <div class="feedback" id="feedback" aria-hidden="true">NICE MATCH! +1</div>
+    </section>
+    <footer class="footer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      TAKE YOUR TIME. YOU’VE GOT THIS.
+    </footer>
+    <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="announcement"></div>
+  </main>
+  <noscript>PLEASE ENABLE JAVASCRIPT TO PLAY LETTER HUNT.</noscript>
+  <script>
+  (() => {
+    'use strict';
+
+    // This game is entirely self-contained. No requests, accounts, or libraries.
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const PALETTE = [
+      {fill: '#ddd2fa', shadow: '#bfaee7'},
+      {fill: '#bfe9d9', shadow: '#93c9b5'},
+      {fill: '#ffdfa0', shadow: '#e3be74'},
+      {fill: '#fac9c2', shadow: '#e2aaa4'},
+      {fill: '#c4e4f5', shadow: '#9dc6dd'},
+      {fill: '#f2cee6', shadow: '#d9adc9'},
+      {fill: '#dce9b8', shadow: '#bccd91'},
+      {fill: '#ffd2b4', shadow: '#e6b190'}
+    ];
+    const $ = id => document.getElementById(id);
+    const field = $('playfield');
+    const targetNode = $('target');
+    const targetCard = $('targetCard');
+    const scoreNode = $('score');
+    const scorePill = $('scorePill');
+    const feedback = $('feedback');
+    const soundButton = $('soundButton');
+    const motionButton = $('motionButton');
+    const announcement = $('announcement');
+    const canvas = $('confetti');
+    const ctx = canvas.getContext('2d');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let bodies = [];
+    let particles = [];
+    let target = '';
+    let score = 0;
+    let width = 0;
+    let height = 0;
+    let diameter = 80;
+    let locked = false;
+    let paused = reducedMotion.matches;
+    let soundEnabled = false;
+    let audio = null;
+    let audioUnavailable = false;
+    let nextTimer = 0;
+    let feedbackTimer = 0;
+    let roundSerial = 0;
+    let previousTime = 0;
+    let frameId = 0;
+    let targetBag = [];
+
+    function shuffle(items) {
+      const a = [...items];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    const random = (min, max) => min + Math.random() * (max - min);
+
+    // Every capital is visited once per shuffled alphabet; never repeat a target
+    // across a bag boundary, either.
+    function nextTarget() {
+      if (!targetBag.length) targetBag = shuffle(ALPHABET);
+      if (targetBag[targetBag.length - 1] === target && targetBag.length > 1) {
+        [targetBag[0], targetBag[targetBag.length - 1]] = [targetBag[targetBag.length - 1], targetBag[0]];
+      }
+      return targetBag.pop();
+    }
+
+    function setPressed(button, pressed, label) {
+      button.setAttribute('aria-pressed', String(pressed));
+      button.setAttribute('aria-label', label);
+      button.title = label;
+    }
+    function updateMotionButton() {
+      setPressed(motionButton, paused, paused ? 'Resume floating letters' : 'Pause floating letters');
+    }
+    updateMotionButton();
+
+    function showFeedback(text, duration) {
+      clearTimeout(feedbackTimer);
+      feedback.textContent = text;
+      feedback.classList.add('show');
+      feedbackTimer = window.setTimeout(() => feedback.classList.remove('show'), duration);
+    }
+
+    // Audio is synthesized on-device, and only created after a user gesture.
+    function getAudio() {
+      if (audioUnavailable) return null;
+      try {
+        if (!audio) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return null;
+          audio = new AudioContext();
+        }
+        if (audio.state === 'suspended') audio.resume().catch(() => {});
+        return audio;
+      } catch (_) {
+        audioUnavailable = true;
+        return null;
+      }
+    }
+    function chime(milestone = false) {
+      if (!soundEnabled) return;
+      const ac = getAudio();
+      if (!ac) return;
+      try {
+        const notes = milestone ? [523.25, 659.25, 783.99, 1046.5] : [659.25, 880];
+        notes.forEach((frequency, i) => {
+          const oscillator = ac.createOscillator();
+          const gain = ac.createGain();
+          const start = ac.currentTime + i * .11;
+          oscillator.type = 'sine';
+          oscillator.frequency.value = frequency;
+          gain.gain.setValueAtTime(0, start);
+          gain.gain.linearRampToValueAtTime(.10, start + .014);
+          gain.gain.exponentialRampToValueAtTime(.001, start + .26);
+          oscillator.connect(gain);
+          gain.connect(ac.destination);
+          oscillator.start(start);
+          oscillator.stop(start + .28);
+          oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+        });
+      } catch (_) { /* A device without usable audio can still play. */ }
+    }
+
+    soundButton.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled && !getAudio()) {
+        soundEnabled = false;
+        showFeedback('SOUND IS UNAVAILABLE', 1500);
+      }
+      setPressed(soundButton, soundEnabled, soundEnabled ? 'Turn sound off' : 'Turn sound on');
+      if (soundEnabled) chime();
+    });
+    motionButton.addEventListener('click', () => {
+      paused = !paused;
+      updateMotionButton();
+      showFeedback(paused ? 'LETTERS ARE STILL. KEEP PLAYING!' : 'LET’S FLOAT!', 1300);
+    });
+
+    // Pick a spacious grid for the actual available area, including landscape.
+    function gridFor(n) {
+      let best = {columns: 1, rows: n, size: 0};
+      for (let columns = 1; columns <= n; columns++) {
+        const rows = Math.ceil(n / columns);
+        const size = Math.min((width - 20) / columns, (height - 22) / rows);
+        if (size > best.size) best = {columns, rows, size};
+      }
+      return best;
+    }
+    function desiredCount() {
+      // Six choices on phones; eight on roomy tablets. Shrink the set only
+      // on very small viewports so each letter stays comfortably touchable.
+      let count = width > 650 && height > 390 ? 8 : 6;
+      while (count > 2 && gridFor(count).size < 72) count--;
+      return count;
+    }
+
+    function positionBodies() {
+      if (!bodies.length) return;
+      const grid = gridFor(bodies.length);
+      diameter = Math.max(30, Math.min(width > 650 ? 108 : 94, grid.size * .77));
+      const cellWidth = (width - 20) / grid.columns;
+      const cellHeight = (height - 22) / grid.rows;
+      const slots = shuffle(Array.from({length: bodies.length}, (_, i) => i));
+      bodies.forEach((b, i) => {
+        const slot = slots[i];
+        const row = Math.floor(slot / grid.columns);
+        const col = slot % grid.columns;
+        // Center a short last row rather than leaving an empty corner.
+        const inThisRow = Math.min(grid.columns, bodies.length - row * grid.columns);
+        const rowOffset = (grid.columns - inThisRow) * cellWidth / 2;
+        const slackX = Math.max(0, (cellWidth - diameter) / 2 - 7);
+        const slackY = Math.max(0, (cellHeight - diameter) / 2 - 8);
+        b.x = 10 + rowOffset + (col + .5) * cellWidth + random(-slackX * .45, slackX * .45);
+        b.y = 8 + (row + .5) * cellHeight + random(-slackY * .45, slackY * .45);
+        b.r = diameter / 2;
+        b.el.style.setProperty('--size', `${diameter}px`);
+        b.el.style.setProperty('--font-size', `${Math.round(diameter * .59)}px`);
+        keepInside(b);
+        drawBody(b);
+      });
+    }
+
+    function drawBody(b) {
+      b.el.style.transform = `translate3d(${(b.x - b.r).toFixed(2)}px, ${(b.y - b.r).toFixed(2)}px, 0)`;
+    }
+    function keepInside(b) {
+      const left = b.r + 6;
+      const right = Math.max(left, width - b.r - 6);
+      const top = b.r + 6;
+      const bottom = Math.max(top, height - b.r - 12);
+      if (b.x < left) { b.x = left; b.vx = Math.abs(b.vx); }
+      if (b.x > right) { b.x = right; b.vx = -Math.abs(b.vx); }
+      if (b.y < top) { b.y = top; b.vy = Math.abs(b.vy); }
+      if (b.y > bottom) { b.y = bottom; b.vy = -Math.abs(b.vy); }
+    }
+
+    function createChoices() {
+      const hadLetterFocus = bodies.some(b => b.el === document.activeElement);
+      bodies.forEach(b => b.el.remove());
+      bodies = [];
+      const count = desiredCount();
+      const distractors = shuffle([...ALPHABET].filter(letter => letter !== target)).slice(0, count - 1);
+      const letters = shuffle([target, ...distractors]);
+      const colors = shuffle(PALETTE);
+      const serial = roundSerial;
+      letters.forEach((letter, i) => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'letter arrive';
+        el.dataset.letter = letter;
+        el.setAttribute('aria-label', letter);
+        el.style.setProperty('--fill', colors[i].fill);
+        el.style.setProperty('--shadow', colors[i].shadow);
+        el.style.setProperty('--delay', `${i * .035}s`);
+        const bubble = document.createElement('span');
+        bubble.className = 'bubble';
+        bubble.textContent = letter;
+        el.appendChild(bubble);
+        const angle = random(0, Math.PI * 2);
+        const speed = random(12, 22);
+        const b = {el, letter, x: 0, y: 0, r: 0, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed};
+        bodies.push(b);
+        field.appendChild(el);
+        // Score on pointer-down: floating targets must not escape between touch
+        // down and up. A click fallback supports keyboards and screen readers.
+        el.addEventListener('pointerdown', event => {
+          if (!event.isPrimary || event.button !== 0) return;
+          event.preventDefault();
+          choose(b, serial);
+        });
+        el.addEventListener('click', event => {
+          if (event.detail === 0 || !('PointerEvent' in window)) choose(b, serial);
+        });
+        el.addEventListener('animationend', event => {
+          if (event.animationName === 'arrive') el.classList.remove('arrive');
+          if (event.animationName === 'gentle-wiggle') el.classList.remove('try-again');
+        });
+      });
+      positionBodies();
+      if (hadLetterFocus && bodies[0]) bodies[0].el.focus({preventScroll: true});
+    }
+
+    function newRound() {
+      clearTimeout(nextTimer);
+      locked = false;
+      roundSerial++;
+      target = nextTarget();
+      targetNode.textContent = target;
+      targetCard.classList.remove('enter');
+      void targetCard.offsetWidth;
+      targetCard.classList.add('enter');
+      createChoices();
+      field.setAttribute('aria-label', `Find the letter ${target} among the floating letters`);
+      announcement.textContent = `Find the letter ${target}. Score: ${score}.`;
+    }
+
+    function choose(body, serial) {
+      if (locked || serial !== roundSerial || !body.el.isConnected) return;
+      body.el.classList.remove('arrive');
+      if (body.letter !== target) {
+        body.el.classList.remove('try-again');
+        void body.el.offsetWidth;
+        body.el.classList.add('try-again');
+        announcement.textContent = `That is ${body.letter}. Look for ${target}.`;
+        return;
+      }
+      // Lock immediately: fast taps or multiple fingers cannot add extra points.
+      locked = true;
+      score++;
+      scoreNode.textContent = String(score);
+      scorePill.setAttribute('aria-label', `Score: ${score} ${score === 1 ? 'point' : 'points'}`);
+      scorePill.classList.remove('pop');
+      void scorePill.offsetWidth;
+      scorePill.classList.add('pop');
+      body.el.classList.remove('try-again');
+      body.el.classList.add('correct');
+      const milestone = score % 10 === 0;
+      showFeedback(milestone ? `${score} POINTS! AMAZING!` : 'NICE MATCH! +1', milestone ? 1400 : 850);
+      announcement.textContent = `Correct! ${target}. ${score} ${score === 1 ? 'point' : 'points'}.`;
+      burst(body.x, body.y, milestone ? 40 : 23);
+      chime(milestone);
+      nextTimer = window.setTimeout(newRound, reducedMotion.matches ? 430 : 630);
+    }
+
+    function burst(x, y, count) {
+      if (!ctx || reducedMotion.matches) return;
+      for (let i = 0; i < count; i++) {
+        const angle = random(0, Math.PI * 2);
+        const speed = random(75, 205);
+        particles.push({
+          x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 60,
+          life: 0, maxLife: random(.65, 1.15), size: random(4, 8),
+          rotation: random(0, Math.PI * 2), spin: random(-6, 6),
+          color: PALETTE[Math.floor(Math.random() * PALETTE.length)].shadow
+        });
+      }
+    }
+
+    function move(dt) {
+      for (const b of bodies) {
+        b.x += b.vx * dt;
+        b.y += b.vy * dt;
+        keepInside(b);
+      }
+      // Equal-mass, gentle collisions keep letters from covering one another.
+      // Two relaxation passes also settle any contacts near the field edges.
+      for (let pass = 0; pass < 2; pass++) {
+        for (let i = 0; i < bodies.length; i++) {
+          for (let j = i + 1; j < bodies.length; j++) {
+            const a = bodies[i], b = bodies[j];
+            const dx = b.x - a.x, dy = b.y - a.y;
+            const distance = Math.hypot(dx, dy);
+            const minimum = a.r + b.r + 9;
+            if (distance >= minimum) continue;
+            const nx = distance > .001 ? dx / distance : 1;
+            const ny = distance > .001 ? dy / distance : 0;
+            const correction = (minimum - distance) / 2;
+            a.x -= nx * correction; a.y -= ny * correction;
+            b.x += nx * correction; b.y += ny * correction;
+            const closingSpeed = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+            if (closingSpeed < 0) {
+              a.vx += closingSpeed * nx; a.vy += closingSpeed * ny;
+              b.vx -= closingSpeed * nx; b.vy -= closingSpeed * ny;
+            }
+          }
+        }
+        for (const b of bodies) keepInside(b);
+      }
+      for (const b of bodies) drawBody(b);
+    }
+
+    function animateParticles(dt) {
+      if (!ctx || !particles.length) return;
+      ctx.clearRect(0, 0, width, height);
+      particles = particles.filter(p => p.life < p.maxLife);
+      for (const p of particles) {
+        p.life += dt;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vy += 220 * dt;
+        p.rotation += p.spin * dt;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.globalAlpha = Math.max(0, 1 - p.life / p.maxLife);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * .66);
+        ctx.restore();
+      }
+    }
+
+    function frame(time) {
+      const dt = previousTime ? Math.min((time - previousTime) / 1000, .04) : 0;
+      previousTime = time;
+      if (!paused && !locked) move(dt);
+      animateParticles(dt);
+      frameId = requestAnimationFrame(frame);
+    }
+
+    function resize() {
+      const w = field.clientWidth;
+      const h = field.clientHeight;
+      if (w <= 0 || h <= 0 || (width === w && height === h)) return;
+      width = w; height = h;
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      if (ctx) ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      particles = [];
+      if (!target) newRound();
+      else if (bodies.length !== desiredCount() && !locked) createChoices();
+      else positionBodies();
+    }
+
+    // Observe the playing area, not just the window: Android browser bars and
+    // rotation can change the usable height without a traditional page reload.
+    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(field);
+    window.addEventListener('resize', resize);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', () => {
+      cancelAnimationFrame(frameId);
+      previousTime = 0;
+      if (!document.hidden) {
+        resize();
+        frameId = requestAnimationFrame(frame);
+      }
+    });
+    window.addEventListener('pagehide', () => {
+      if (audio && audio.state === 'running') audio.suspend().catch(() => {});
+    });
+    const onReducedMotionChange = event => {
+      paused = event.matches;
+      updateMotionButton();
+      if (event.matches) {
+        particles = [];
+        if (ctx) ctx.clearRect(0, 0, width, height);
+      }
+    };
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', onReducedMotionChange);
+    else if (reducedMotion.addListener) reducedMotion.addListener(onReducedMotionChange);
+
+    resize();
+    frameId = requestAnimationFrame(frame);
+  })();
+  </script>
+</body>
+</html>
