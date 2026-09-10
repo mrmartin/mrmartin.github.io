@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#fbefee">
+<meta name="description" content="A little offline maze adventure. Pick a kitten, bunny or unicorn, and find the flower gate marked CÍL.">
+<title>Petal Paths · A little maze adventure</title>
+<style>
+:root{--paper:#fffaf4;--rose:#e77795;--rose-dark:#a64468;--ink:#654865;--muted:#a07d93;--lavender:#bca4d8;--mint:#79b8a5;--line:#efdee6;--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#fbefee;color:var(--ink);font-family:"Trebuchet MS",ui-rounded,"Arial Rounded MT Bold",Arial,sans-serif;-webkit-user-select:none;user-select:none}
+button{font:inherit;cursor:pointer;touch-action:manipulation;border:0;color:inherit;position:relative;outline-offset:4px;-webkit-user-select:none;user-select:none}
+button:focus-visible{outline:3px solid #9567b3}button:disabled{opacity:.5;cursor:default}button svg{pointer-events:none}button:active:not(:disabled){transform:translateY(2px)}
+[hidden]{display:none!important}
+#app{height:100%;height:100dvh;max-width:1280px;margin:auto;padding:calc(env(safe-area-inset-top,0px) + 8px) max(12px,env(safe-area-inset-right,0px)) calc(var(--safe-bottom) + 8px) max(12px,env(safe-area-inset-left,0px));display:grid;grid-template-rows:54px 46px minmax(0,1fr) 103px;gap:6px;position:relative}
+#paper{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 5% 5%,#f9dce5 0,transparent 45%),radial-gradient(ellipse at 100% 95%,#e3eee5 0,transparent 40%),radial-gradient(#ceadb429 .85px,transparent .85px);background-size:auto,auto,12px 12px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:8px;z-index:3;min-width:0}.brand{display:flex;align-items:center;gap:8px}.brand-mark{width:39px;height:39px;flex:0 0 auto}.brand-name{font-size:20px;font-weight:900;letter-spacing:-.7px;line-height:1}.brand-sub{font-size:9px;letter-spacing:2px;margin-top:4px;color:var(--muted);font-weight:bold}.head-actions{display:flex;gap:7px}.icon-btn{width:42px;height:42px;border-radius:15px;border:1px solid #fff;background:#fffaf2bf;box-shadow:0 3px 0 #ead7de;display:grid;place-items:center}.icon-btn svg{width:21px;height:21px;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.status{z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 5px;min-width:0}.status-left{display:flex;align-items:center;gap:9px}.portrait{width:41px;height:41px;border-radius:50%;border:1px solid #f1d4df;background:#fff8f8;padding:0;box-shadow:0 2px 0 #efdae2}.portrait img{width:100%;height:100%;object-fit:contain}.maze-title{font-size:12px;font-weight:900;letter-spacing:1px}.maze-sub{font-size:10px;color:var(--muted);margin-top:3px}.gems{display:flex;align-items:center;gap:5px;background:#fffaf7;border-radius:30px;padding:7px 11px;border:1px solid #f0dfe4;box-shadow:0 2px 0 #f3e2e4}.gems svg{width:20px;height:20px;fill:#e9dfe4;stroke:#d4c2d1;stroke-width:1.4}.gems svg.filled{fill:#f3c85f;stroke:#dca23b;filter:drop-shadow(0 1px 2px #f5c76544)}
+#boardWrap{min-width:0;min-height:0;position:relative;z-index:1;display:grid;place-items:center;border-radius:28px;background:#fffcf8;border:2px solid #fff;box-shadow:0 7px 0 #dec9d63b,0 15px 38px #ab729415,inset 0 0 0 1px #eddae6;overflow:hidden}
+#board{width:100%;height:100%;display:block;touch-action:none;outline-offset:-5px}#board:focus-visible{outline:3px solid var(--lavender)}
+.board-label{position:absolute;left:13px;top:11px;font-size:8px;letter-spacing:1.8px;color:#a48b9d;font-weight:bold;pointer-events:none}.board-label:before{content:'✦';margin-right:7px;color:#cea66b}
+#toast{position:absolute;left:50%;bottom:12px;transform:translate(-50%,8px);background:#fffaf8f5;border:1px solid #edcddb;box-shadow:0 3px 10px #68446115;color:var(--rose-dark);font-size:12px;font-weight:bold;max-width:90%;text-align:center;padding:9px 15px;border-radius:20px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap}#toast.show{opacity:1;transform:translate(-50%,0)}
+.controls{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;z-index:1;min-width:0}.control-row{display:flex;align-items:center;justify-content:center;gap:13px;width:100%}.directions{display:flex;gap:6px;align-items:center}.arrow{width:50px;height:49px;border-radius:17px;border:1px solid #fff;background:linear-gradient(#fffefb,#f8edf5);box-shadow:0 4px 0 #ddc8de;touch-action:none;display:grid;place-items:center}.arrow svg{width:23px;height:23px;fill:none;stroke:#9670a5;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.arrow.active{background:#ecd7f3;transform:translateY(3px);box-shadow:0 1px 0 #ceb0d2}.tool{height:49px;width:49px;border-radius:17px;background:#e8f1e9;border:1px solid #fff;box-shadow:0 4px 0 #c8dfd2;display:grid;place-items:center}.tool svg{width:25px;height:25px;stroke:#599482;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.tool-label{position:absolute;bottom:-16px;font-size:8px;letter-spacing:1px;font-weight:900;color:#719180}.control-note{font-size:10px;color:#9e8195;margin-top:10px;text-align:center;letter-spacing:.2px}
+.overlay{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + var(--safe-bottom)) max(16px,env(safe-area-inset-left,0px));background:#f8e8edc9;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);overflow:auto;overscroll-behavior:contain}
+.panel{width:min(100%,510px);background:#fffaf5;border:2px solid #fff;border-radius:32px;box-shadow:0 9px 0 #d9b7cf55,0 28px 80px #87668028;position:relative;padding:28px;text-align:center;flex-shrink:0;overflow:hidden}.panel:before{content:'';height:7px;background:repeating-linear-gradient(90deg,#e9b4c9 0 32px,#f7d391 32px 64px,#bed9c9 64px 96px,#cfc0e2 96px 128px);position:absolute;top:0;left:0;right:0}
+.eyebrow{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#b08098;font-weight:900}.menu-art{width:156px;height:102px;margin:3px auto 0;display:block}.panel h1{font-size:36px;line-height:1.08;letter-spacing:-1.4px;color:#986185;margin:7px 0 10px;font-weight:900}.panel h1 em{font-style:normal;color:#d9819c}.intro{font-size:13px;line-height:1.6;margin:0 0 18px;color:#9a7a8e}.pick-label{font-size:9px;font-weight:900;letter-spacing:1.9px;margin:12px 0 9px;color:#aa8198}.animals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.animal{border:2px solid #efdfeb;background:#fffdfb;border-radius:21px;min-height:97px;padding:5px 5px 10px;box-shadow:0 3px 0 #f1e2e9;transition:background .15s,border-color .15s}.animal img{width:70px;height:68px;display:block;margin:0 auto -2px;max-width:100%}.animal span{font-size:9px;letter-spacing:1px;font-weight:900}.animal[aria-pressed=true]{border-color:#dc99b4;background:#fcebf0;box-shadow:0 3px 0 #dba0b9}.animal[aria-pressed=true]:after{content:'✓';position:absolute;top:5px;right:7px;font-size:11px;color:#bb6387;font-weight:900}.sizes{display:flex;gap:7px}.size{flex:1;border:1.5px solid #e6ddea;border-radius:13px;background:#fffcfb;padding:9px 2px;font-size:10px;font-weight:bold;line-height:1.3}.size small{display:block;font-weight:normal;font-size:9px;color:#ad92a6;margin-top:3px}.size[aria-pressed=true]{background:#f0e6f7;border-color:#b79acb;color:#865f9d}.primary{display:block;width:100%;border-radius:18px;padding:16px 10px;background:linear-gradient(135deg,#e989a4,#d67499);color:white;font-weight:900;letter-spacing:1.5px;font-size:14px;box-shadow:0 5px 0 #bc618b;margin-top:19px;text-shadow:0 1px 0 #af688b33}.primary svg{width:17px;height:17px;vertical-align:middle;margin-left:7px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.menu-foot{font-size:10px;color:#b291a4;margin:14px 0 0;line-height:1.5}.secondary{background:#f1e7f4;border:1px solid #e3d2eb;border-radius:15px;width:100%;padding:12px;margin-top:11px;font-weight:bold;font-size:12px;color:#8e6b9d;box-shadow:0 3px 0 #e0cee7}.text-button{background:transparent;padding:10px;font-size:11px;color:#a8829a;margin-top:6px}.modal-art{height:126px;width:180px;margin:0 auto;display:block}.small-panel{max-width:365px}.small-panel h2{font-size:28px;letter-spacing:-1px;margin:8px 0;color:#956081}.small-panel p{font-size:13px;line-height:1.7;color:#9b7e91;margin:8px 0 12px}.win-stars{display:flex;gap:8px;align-items:center;justify-content:center;margin:12px 0}.win-stars svg{width:38px;height:38px}.win-sparkles{position:fixed;inset:0;z-index:11;pointer-events:none;overflow:hidden}.confetti{position:absolute;width:9px;height:14px;border-radius:3px;top:-25px;animation:fall 2.7s ease-in forwards}@keyframes fall{to{transform:translate(var(--drift),110vh) rotate(650deg);opacity:.2}}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:360px){#app{padding-left:9px;padding-right:9px;grid-template-rows:48px 43px minmax(0,1fr) 95px;gap:5px}.brand-name{font-size:18px}.brand-sub{font-size:8px}.brand-mark{width:33px;height:33px}.icon-btn{width:38px;height:38px}.head-actions{gap:5px}.arrow{width:44px;height:46px}.control-row{gap:10px}.tool{width:43px;height:46px}.directions{gap:5px}.panel{padding:22px 17px}.panel h1{font-size:30px}.animal{min-height:90px}.animal img{width:62px;height:61px}.animal span{font-size:8px}.status{padding:0 2px}.maze-title{font-size:11px}}
+@media (max-height:690px) and (orientation:portrait){.panel{padding-top:19px;padding-bottom:19px}.menu-art{height:70px;width:112px}.panel h1{font-size:29px;margin:3px 0 7px}.intro{margin-bottom:10px;font-size:12px}.pick-label{margin:10px 0 7px}.animal{min-height:80px;padding-bottom:8px}.animal img{width:59px;height:55px}.size{padding:7px 2px}.primary{margin-top:14px;padding:13px}.menu-foot{margin-top:11px;font-size:9px}.panel h1 br{display:none}}
+@media (orientation:landscape) and (max-height:650px){#app{display:grid;grid-template-columns:180px minmax(0,1fr);grid-template-rows:47px 50px minmax(0,1fr);gap:9px;padding-top:max(8px,env(safe-area-inset-top,0px));padding-bottom:max(9px,var(--safe-bottom))}.header{grid-column:1;grid-row:1;align-items:flex-start}.brand-mark{width:31px;height:31px}.brand-name{font-size:19px}.brand-sub{font-size:7px;letter-spacing:1.5px}.head-actions{position:absolute;bottom:12px;left:12px;gap:8px}.icon-btn{height:36px;width:44px;border-radius:12px}.status{grid-column:1;grid-row:2;justify-content:flex-start;padding:0;gap:8px}.gems{padding:6px;gap:2px}.gems svg{height:14px;width:14px}.maze-title{font-size:10px}.maze-sub{font-size:9px}.portrait{height:34px;width:34px}.status-left{gap:6px}#boardWrap{grid-column:2;grid-row:1/4;border-radius:24px}.controls{grid-column:1;grid-row:3;justify-content:flex-start;padding-top:4px;gap:5px}.control-row{display:grid;grid-template-columns:132px 40px;gap:7px;align-items:center}.directions{display:grid;grid-template-columns:repeat(3,40px);grid-template-rows:40px 40px;gap:4px}.arrow{width:40px;height:38px;border-radius:13px}.arrow[data-dir=left]{grid-column:1;grid-row:2}.arrow[data-dir=up]{grid-column:2;grid-row:1}.arrow[data-dir=down]{grid-column:2;grid-row:2}.arrow[data-dir=right]{grid-column:3;grid-row:2}.tool{width:39px;height:41px}.tool-label{font-size:7px;bottom:-13px}.control-note{font-size:9px;line-height:1.5;margin:5px 0 0;max-width:168px}.panel.menu-panel{width:min(640px,100%);padding:23px;display:grid;grid-template-columns:.85fr 1.15fr;column-gap:25px;align-items:center}.menu-left{grid-column:1}.menu-right{grid-column:2}.menu-art{width:112px;height:73px;margin-top:8px}.panel h1{font-size:30px}.intro{font-size:11px;margin-bottom:0}.pick-label{margin-top:9px;font-size:8px}.animal{min-height:78px;padding-bottom:7px;border-radius:17px}.animal img{width:57px;height:53px}.animal span{font-size:8px;letter-spacing:.6px}.sizes{gap:5px}.size{font-size:9px;padding:7px 2px}.size small{font-size:8px}.primary{margin-top:13px;padding:12px}.menu-foot{margin-top:10px;font-size:9px}.small-panel{padding:20px;max-width:390px}.modal-art{height:65px;width:115px}.small-panel h2{font-size:25px;margin:5px 0}.small-panel p{font-size:12px;margin:5px 0}.win-stars{margin:7px 0}.win-stars svg{height:29px;width:29px}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="paper"></div>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><defs>
+<symbol id="i-flower" viewBox="0 0 48 48"><g fill="#e8a0ba"><ellipse cx="24" cy="12" rx="7" ry="11"/><ellipse cx="24" cy="36" rx="7" ry="11"/><ellipse cx="12" cy="24" rx="11" ry="7"/><ellipse cx="36" cy="24" rx="11" ry="7"/><ellipse cx="24" cy="12" rx="7" ry="11" transform="rotate(45 24 24)"/><ellipse cx="24" cy="36" rx="7" ry="11" transform="rotate(45 24 24)"/><ellipse cx="12" cy="24" rx="11" ry="7" transform="rotate(45 24 24)"/><ellipse cx="36" cy="24" rx="11" ry="7" transform="rotate(45 24 24)"/></g><circle cx="24" cy="24" r="9" fill="#f7d98e"/><circle cx="21" cy="23" r="1.2" fill="#a57a57"/><circle cx="27" cy="23" r="1.2" fill="#a57a57"/><path d="M22 27 Q24 29 26 27" fill="none" stroke="#a57a57" stroke-width="1.1" stroke-linecap="round"/></symbol>
+<symbol id="i-star" viewBox="0 0 32 32"><path d="m16 3 4.05 8.3 9.15 1.35-6.6 6.45 1.55 9.1L16 23.9l-8.15 4.3 1.55-9.1-6.6-6.45 9.15-1.35Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+</defs></svg>
+<main id="app" aria-label="Petal Paths maze game">
+<header class="header"><div class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#i-flower"/></svg><div><div class="brand-name">Petal Paths</div><div class="brand-sub">A LITTLE ADVENTURE</div></div></div><div class="head-actions">
+<button id="soundBtn" class="icon-btn" aria-label="Turn sound on" aria-pressed="false" title="Sound"><svg viewBox="0 0 24 24"><path d="M11 4 6 8H3v8h3l5 4Z"/><path id="soundMark" d="m16 9 6 6m0-6-6 6"/></svg></button>
+<button id="pauseBtn" class="icon-btn" aria-label="Pause and options" title="Pause"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="3"/></svg></button>
+</div></header>
+<section class="status" aria-label="Maze progress"><div class="status-left"><button id="changeAnimal" class="portrait" aria-label="Change your animal"><img id="currentAnimal" alt="Kitten"/></button><div><div id="mazeTitle" class="maze-title">MAZE 01</div><div id="mazeSub" class="maze-sub">A little wander</div></div></div><div id="starCount" class="gems" aria-label="0 of 3 optional stars collected"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div></section>
+<div id="boardWrap"><div class="board-label" aria-hidden="true">FOLLOW YOUR CURIOSITY</div><canvas id="board" tabindex="0" role="application" aria-label="Curved maze. Guide your animal from START to CÍL using arrow keys, the direction buttons, or dragging along the paths."></canvas><div id="toast" role="status"></div></div>
+<footer class="controls"><div class="control-row"><div class="directions" role="group" aria-label="Movement controls">
+<button class="arrow" data-dir="left" aria-label="Move left"><svg style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button><button class="arrow" data-dir="up" aria-label="Move up"><svg style="transform:rotate(-90deg)"><use href="#i-arrow"/></svg></button><button class="arrow" data-dir="down" aria-label="Move down"><svg style="transform:rotate(90deg)"><use href="#i-arrow"/></svg></button><button class="arrow" data-dir="right" aria-label="Move right"><svg><use href="#i-arrow"/></svg></button>
+</div><button id="hintBtn" class="tool" aria-label="Show a little hint"><svg viewBox="0 0 28 28"><path d="m6 22 13-13m-5-3 1.2-3.5L17 6l3.5 1.2L17 9l-1.8 3.5L14 9l-3.5-1.8Z"/><path d="M22 15v5m-2.5-2.5h5M7 4v4M5 6h4"/></svg><span class="tool-label">HINT</span></button></div><div id="controlNote" class="control-note">Drag along the paths · or hold the arrows</div></footer>
+</main>
+<div id="menu" class="overlay" role="dialog" aria-modal="true" aria-labelledby="menuHeading">
+<div class="panel menu-panel"><div class="menu-left"><div class="eyebrow">WELCOME TO PETAL PATHS</div><canvas id="menuArt" class="menu-art" width="468" height="306" aria-hidden="true"></canvas><h1 id="menuHeading">Little paws.<br><em>Big adventures.</em></h1><p class="intro">A winding garden, a secret way.<br>Find the flower gate marked <b>CÍL</b>.</p></div><div class="menu-right">
+<div class="pick-label">1 · CHOOSE YOUR FRIEND</div><div class="animals" id="animalChoices" role="group" aria-label="Choose your animal">
+<button class="animal" data-animal="kitten" aria-pressed="true"><img alt=""/><span>KITTEN</span></button><button class="animal" data-animal="bunny" aria-pressed="false"><img alt=""/><span>BUNNY</span></button><button class="animal" data-animal="unicorn" aria-pressed="false"><img alt=""/><span>UNICORN</span></button>
+</div><div class="pick-label">2 · PICK YOUR ADVENTURE</div><div class="sizes" id="sizeChoices" role="group" aria-label="Maze size"><button class="size" data-size="0" aria-pressed="true">LITTLE<small>A gentle start</small></button><button class="size" data-size="1" aria-pressed="false">BIGGER<small>More to explore</small></button><button class="size" data-size="2" aria-pressed="false">BIG<small>A real adventure</small></button></div>
+<button id="playBtn" class="primary">LET’S EXPLORE <svg><use href="#i-arrow"/></svg></button><p class="menu-foot">No rush. No wrong turns. Just find your way.</p>
+</div></div></div>
+<div id="pause" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pauseHeading" hidden><div class="panel small-panel"><canvas id="pauseArt" class="modal-art" width="540" height="378" aria-hidden="true"></canvas><div class="eyebrow">A LITTLE BREATHER</div><h2 id="pauseHeading">The garden can wait.</h2><p>Your place is safe. Ready to keep exploring?</p><button id="resumeBtn" class="primary">KEEP GOING</button><button id="newMazeBtn" class="secondary">CHOOSE A NEW ADVENTURE</button></div></div>
+<div id="animalModal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="animalHeading" hidden><div class="panel small-panel"><div class="eyebrow">A DIFFERENT LITTLE FRIEND</div><h2 id="animalHeading">Who’s exploring?</h2><p>Change your animal. Keep your place.</p><div id="quickAnimals" class="animals" role="group" aria-label="Choose your animal"></div><button id="animalDone" class="primary">BACK TO THE GARDEN</button></div></div>
+<div id="win" class="overlay" role="dialog" aria-modal="true" aria-labelledby="winHeading" hidden><div class="panel small-panel"><canvas id="winArt" class="modal-art" width="540" height="378" aria-hidden="true"></canvas><div class="eyebrow">CÍL · YOU MADE IT</div><h2 id="winHeading">You found the way!</h2><div id="winStars" class="win-stars" aria-hidden="true"></div><p id="winText">A lovely little adventure.</p><button id="nextBtn" class="primary">ANOTHER MAZE <svg><use href="#i-arrow"/></svg></button><button id="chooseBtn" class="text-button">CHOOSE A DIFFERENT ADVENTURE</button></div></div>
+<div id="live" class="sr-only" aria-live="polite"></div><div id="confetti" class="win-sparkles" aria-hidden="true"></div>
+<script>
+/* PETAL PATHS — a self-contained, offline-first game. No network, libraries,
+   fonts, or image downloads. Maze walls and routes share one smooth, invertible
+   deformation; movement only follows carved graph edges, never through walls. */
+'use strict';
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const canvas=$('#board'),ctx=canvas.getContext('2d',{alpha:false}),layer=document.createElement('canvas'),lc=layer.getContext('2d',{alpha:false});
+const DIRS=[{name:'up',dx:0,dy:-1,bit:1,op:4},{name:'right',dx:1,dy:0,bit:2,op:8},{name:'down',dx:0,dy:1,bit:4,op:1},{name:'left',dx:-1,dy:0,bit:8,op:2}];
+const colors={rose:'#e69ab7',violet:'#b395cc',mint:'#92c6b1',ink:'#70506a',gold:'#ebbf63',cream:'#fffcf8'};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let stored={};try{stored=JSON.parse(localStorage.getItem('petal-paths-v1')||'{}')||{}}catch(e){}
+const names={kitten:'Kitten',bunny:'Bunny',unicorn:'Unicorn'};
+let chosen=names[stored.animal]?stored.animal:'kitten',sizeChoice=[0,1,2].includes(stored.size)?stored.size:0;
+let sound=false,audio=null,state='menu',maze=null,player=null,round=1,completed=Number(stored.completed)||0,stars=[],trail=new Set(),hints=[],hintTime=0;
+let phase=[0,0],view={w:1,h:1,s:1,ox:0,oy:0,dpr:1},clock=0,last=0,raf=0,particles=[],held=null,queued=null,drag=null,target=null,bump=0,bumpDir=0,toastUntil=0,sessionActive=false;
+let allowedLastTime=0,keyboardHeld=new Set(),artCache={},activePointer=null,controlPointer=null;
+const rand=(a,b)=>a+Math.random()*(b-a),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const choice=a=>a[Math.floor(Math.random()*a.length)];
+function save(){try{localStorage.setItem('petal-paths-v1',JSON.stringify({animal:chosen,size:sizeChoice,completed}))}catch(e){}}
+function rr(c,x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function ellipse(c,x,y,rx,ry,fill,rot=0){c.beginPath();c.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot,0,Math.PI*2);c.fillStyle=fill;c.fill()}
+function line(c,x1,y1,x2,y2,color,width=1){c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.stroke()}
+function star(c,x,y,r,fill=colors.gold,rot=-Math.PI/2){c.beginPath();for(let i=0;i<10;i++){const a=rot+i*Math.PI/5,rad=i%2?r*.48:r;i?c.lineTo(x+Math.cos(a)*rad,y+Math.sin(a)*rad):c.moveTo(x+Math.cos(a)*rad,y+Math.sin(a)*rad)}c.closePath();c.fillStyle=fill;c.fill();c.strokeStyle='#d7a34b';c.lineWidth=r*.09;c.lineJoin='round';c.stroke()}
+function sparkle(c,x,y,r,color){c.save();c.translate(x,y);c.beginPath();c.moveTo(0,-r);c.quadraticCurveTo(r*.15,-r*.15,r,0);c.quadraticCurveTo(r*.15,r*.15,0,r);c.quadraticCurveTo(-r*.15,r*.15,-r,0);c.quadraticCurveTo(-r*.15,-r*.15,0,-r);c.fillStyle=color;c.fill();c.restore()}
+function flower(c,x,y,r,petal='#e8adc5',ang=0){c.save();c.translate(x,y);c.rotate(ang);for(let i=0;i<6;i++){const a=i*Math.PI/3;ellipse(c,Math.cos(a)*r*.49,Math.sin(a)*r*.49,r*.53,r*.3,petal,a)}ellipse(c,0,0,r*.28,r*.28,'#f4d487');c.restore()}
+function leaf(c,x,y,r,angle,color='#afcdb9'){c.save();c.translate(x,y);c.rotate(angle);c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(-r*.35,-r*.8,0,-r*1.4);c.quadraticCurveTo(r*.7,-r*.5,0,0);c.fillStyle=color;c.fill();c.restore()}
+function animal(c,type,x,y,r,look=0,t=0,happy=false){
+ c.save();c.translate(x,y);const blink=!happy&&!reduced&&(t%6.1>5.94);c.lineCap='round';c.lineJoin='round';
+ const edge=type==='kitten'?'#c19091':type==='bunny'?'#c5b6bd':'#b7a1c8';
+ c.strokeStyle=edge;c.lineWidth=r*.044;
+ if(type==='bunny'){
+  ellipse(c,-r*.46,-r*.91,r*.25,r*.69,'#fdf7f2',-.12);c.stroke();ellipse(c,r*.45,-r*.91,r*.25,r*.69,'#fdf7f2',.14);c.stroke();
+  ellipse(c,-r*.46,-r*.97,r*.12,r*.43,'#edb7cc',-.12);ellipse(c,r*.45,-r*.97,r*.12,r*.43,'#edb7cc',.14);
+ }else{
+  for(const s of [-1,1]){c.beginPath();c.moveTo(s*r*.84,-r*.23);c.quadraticCurveTo(s*r*1.08,-r*1.38,s*r*.61,-r*1.1);c.lineTo(s*r*.17,-r*.56);c.closePath();c.fillStyle=type==='kitten'?'#ebc5b9':'#f9f1ff';c.fill();c.stroke();c.beginPath();c.moveTo(s*r*.71,-r*.48);c.lineTo(s*r*.76,-r*.98);c.lineTo(s*r*.38,-r*.55);c.closePath();c.fillStyle='#e9b0c6';c.fill()}
+ }
+ if(type==='unicorn'){
+  c.beginPath();c.moveTo(-r*.2,-r*.69);c.lineTo(0,-r*1.71);c.quadraticCurveTo(r*.11,-r*1.55,r*.26,-r*.64);c.fillStyle='#f4d589';c.fill();c.strokeStyle='#cdae6e';c.stroke();line(c,-r*.12,-r*1.02,r*.15,-r*.87,'#d6b578',r*.04);line(c,-r*.08,-r*1.25,r*.1,-r*1.13,'#d6b578',r*.04);c.strokeStyle=edge;
+ }
+ const g=c.createLinearGradient(-r,-r,r*.2,r);g.addColorStop(0,type==='kitten'?'#f2d3c1':type==='bunny'?'#fffdf6':'#fffdfd');g.addColorStop(1,type==='kitten'?'#eac0bd':type==='bunny'?'#f6e9ee':'#f3e7fa');
+ ellipse(c,0,0,r,r*.88,g);c.strokeStyle=edge;c.stroke();
+ if(type==='kitten'){
+  c.strokeStyle='#c49698';c.lineWidth=r*.1;for(const x of [-.22,0,.22]){c.beginPath();c.moveTo(x*r,-r*.72);c.quadraticCurveTo(x*r*.8,-r*.5,x*r*.6,-r*.45);c.stroke()}
+  ellipse(c,0,r*.35,r*.59,r*.4,'#fff3e4');
+ }else if(type==='unicorn'){
+  c.save();c.rotate(-.17);c.fillStyle='#d6b2e3';c.beginPath();c.moveTo(-r*.78,-r*.43);c.bezierCurveTo(-r*.65,-r*1.15,r*.62,-r*.94,r*.71,-r*.46);c.bezierCurveTo(r*.33,-r*.52,r*.11,-r*.75,-r*.08,-r*.46);c.bezierCurveTo(-r*.45,-r*.05,-r*.75,-r*.06,-r*.78,-r*.43);c.fill();c.fillStyle='#edaecb';c.beginPath();c.moveTo(-r*.74,-r*.39);c.bezierCurveTo(-r*.44,-r*.82,r*.04,-r*.94,r*.36,-r*.66);c.bezierCurveTo(-r*.16,-r*.8,-r*.3,-r*.24,-r*.74,-r*.39);c.fill();c.restore();ellipse(c,0,r*.38,r*.52,r*.3,'#eadced');
+ }
+ const eyeX=r*.38,eyeY=r*.07,lookX=look*r*.04;
+ for(const s of [-1,1]){
+  if(happy||blink){c.beginPath();c.arc(s*eyeX,eyeY+r*.06,r*.12,Math.PI*1.1,Math.PI*1.9);c.strokeStyle='#634556';c.lineWidth=r*.055;c.stroke()}
+  else{ellipse(c,s*eyeX+lookX,eyeY,r*.105,r*.155,'#5e465a');ellipse(c,s*eyeX+lookX-r*.025,eyeY-r*.05,r*.034,r*.049,'#fff');line(c,s*eyeX+s*r*.095,eyeY-r*.04,s*eyeX+s*r*.17,eyeY-r*.1,'#745368',r*.035)}
+  ellipse(c,s*r*.65,r*.29,r*.155,r*.084,'#e6a0b799');
+ }
+ if(type==='unicorn'){ellipse(c,-r*.17,r*.34,r*.035,r*.04,'#ae839d');ellipse(c,r*.17,r*.34,r*.035,r*.04,'#ae839d');c.beginPath();c.arc(0,r*.33,r*.18,.35,Math.PI-.35);c.strokeStyle='#a77e99';c.lineWidth=r*.035;c.stroke()}
+ else{c.fillStyle='#bb7c93';c.beginPath();c.moveTo(-r*.105,r*.22);c.quadraticCurveTo(0,r*.18,r*.105,r*.22);c.quadraticCurveTo(0,r*.4,-r*.105,r*.22);c.fill();c.strokeStyle='#9e7689';c.lineWidth=r*.034;c.beginPath();c.moveTo(0,r*.29);c.lineTo(0,r*.41);c.quadraticCurveTo(-r*.14,r*.51,-r*.21,r*.41);c.moveTo(0,r*.41);c.quadraticCurveTo(r*.14,r*.51,r*.21,r*.41);c.stroke();if(type==='kitten')for(const s of [-1,1]){line(c,s*r*.77,r*.2,s*r*1.13,r*.12,'#bc8f9f',r*.028);line(c,s*r*.78,r*.34,s*r*1.12,r*.37,'#bc8f9f',r*.028)}}
+ if(type==='bunny')flower(c,r*.75,-r*.45,r*.29,'#de9cbd',.2);else if(type==='kitten'){
+  c.save();c.translate(r*.71,-r*.61);c.rotate(.28);ellipse(c,-r*.13,0,r*.18,r*.13,'#ac97ca',.5);ellipse(c,r*.13,0,r*.18,r*.13,'#ac97ca',-.5);ellipse(c,0,0,r*.077,r*.077,'#e9d0ee');c.restore();
+ }else{sparkle(c,r*.72,-r*.53,r*.15,'#f5d180')}
+ c.restore();
+}
+function animalAsset(type){if(artCache[type])return artCache[type];const c=document.createElement('canvas');c.width=c.height=240;animal(c.getContext('2d'),type,120,147,68,0,0);return artCache[type]=c.toDataURL('image/png')}
+function drawMenuArt(){const c=$('#menuArt').getContext('2d');c.clearRect(0,0,468,306);c.save();c.scale(3,3);c.strokeStyle='#e8c5d9';c.lineWidth=9;c.lineCap='round';c.beginPath();c.moveTo(12,78);c.bezierCurveTo(18,27,57,106,83,57);c.bezierCurveTo(102,25,114,84,141,36);c.stroke();c.strokeStyle='#f3d7e5';c.lineWidth=3;c.stroke();leaf(c,22,51,12,-.8);flower(c,24,42,12,'#efb6c9');flower(c,136,65,10,'#c8b4dd');sparkle(c,118,20,7,'#dfbb77');animal(c,'bunny',79,53,24,0,0,true);star(c,45,89,7);c.restore()}
+function drawModalArt(id,celebrate=false){const c=$(id).getContext('2d');c.clearRect(0,0,540,378);c.save();c.scale(3,3);ellipse(c,90,103,49,9,'#e9dce9');leaf(c,37,99,21,-.65);leaf(c,145,99,20,.55);flower(c,32,77,12,'#e9b0c4');flower(c,149,79,11,'#cdb9de');animal(c,chosen,90,72,34,0,0,celebrate);sparkle(c,46,34,7,'#d9b974');sparkle(c,138,28,5,'#c1a0d2');if(celebrate){star(c,28,42,8);star(c,154,48,8)}c.restore()}
+// A randomized spanning tree: exactly one route between any two cells.
+function generate(C,R,start,goal){
+ const N=C*R;let best=null,bestScore=-Infinity;
+ for(let attempt=0;attempt<28;attempt++){
+  const cells=Array(N).fill(0),seen=Array(N).fill(false),stack=[Math.floor(Math.random()*N)];seen[stack[0]]=true;
+  while(stack.length){const u=stack[stack.length-1],x=u%C,y=Math.floor(u/C),options=DIRS.filter(d=>x+d.dx>=0&&x+d.dx<C&&y+d.dy>=0&&y+d.dy<R&&!seen[u+d.dx+d.dy*C]);if(!options.length){stack.pop();continue}const d=choice(options),v=u+d.dx+d.dy*C;cells[u]|=d.bit;cells[v]|=d.op;seen[v]=true;stack.push(v)}
+  const m={C,R,N,cells,start,goal,seed:Math.random()},path=findPath(m,start,goal);
+  const desired=N*.52,score=-Math.abs(path.length-desired)+Math.random()*3;
+  if(score>bestScore){best=m;best.solution=path;bestScore=score}if(path.length>=N*.43&&path.length<=N*.7&&attempt>4)break;
+ }
+ return best;
+}
+function neighbors(m,u){const x=u%m.C,y=Math.floor(u/m.C);return DIRS.filter(d=>(m.cells[u]&d.bit)&&x+d.dx>=0&&x+d.dx<m.C&&y+d.dy>=0&&y+d.dy<m.R).map(d=>u+d.dx+d.dy*m.C)}
+function findPath(m,from,to){const prev=Array(m.N).fill(-1),queue=[from];prev[from]=from;for(let k=0;k<queue.length;k++){const u=queue[k];if(u===to)break;for(const v of neighbors(m,u))if(prev[v]===-1){prev[v]=u;queue.push(v)}}if(prev[to]===-1)return[];const out=[to];while(out[out.length-1]!==from)out.push(prev[out[out.length-1]]);return out.reverse()}
+function dimensions(){const b=$('#boardWrap').getBoundingClientRect(),portrait=b.height>b.width*.93;return portrait?[[5,6],[6,8],[8,10]][sizeChoice]:[[7,4],[9,5],[12,6]][sizeChoice]}
+function setup(preview=false){
+ clearInput();const [C,R]=dimensions();maze=generate(C,R,(R-1)*C,C-1);phase=[rand(0,Math.PI*2),rand(0,Math.PI*2)];player={cell:maze.start,from:maze.start,to:maze.start,t:1,moving:false,dir:1};trail=new Set([maze.start]);stars=[];particles=[];hints=[];hintTime=0;bump=0;
+ // Optional stars: one on the route and two in reachable side passages.
+ const path=maze.solution,reachable=new Set([maze.start]),walk=[maze.start];
+ // Do not hide a star beyond the goal: reaching CÍL ends the round, so every
+ // bonus must be collectible without first walking through that gate.
+ for(let i=0;i<walk.length;i++)for(const v of neighbors(maze,walk[i]))if(v!==maze.goal&&!reachable.has(v)){reachable.add(v);walk.push(v)}
+ const off=[...reachable].filter(i=>!path.includes(i));
+ for(let i=off.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[off[i],off[j]]=[off[j],off[i]]}
+ const candidates=[path[Math.floor(path.length*.4)],...off,...path.slice(2,-2)];
+ for(const id of candidates){if(id!==maze.start&&id!==maze.goal&&!stars.some(s=>s.cell===id)){stars.push({cell:id,got:false});if(stars.length===3)break}}
+ updateHUD();resize();if(!preview){state='play';sessionActive=true;save();announce('Find the flower gate marked CÍL. Stars are optional.');ensureLoop()}
+}
+// Smooth deformation of a rectangular grid. Its derivatives keep the Jacobian
+// positive at every supported maze size (C >= 5, R >= 4), so walls never cross.
+function warp(x,y){const a=.24;return {x:x+a*Math.sin(Math.PI*x/maze.C)*Math.sin(y*1.65+phase[0]),y:y+a*Math.sin(Math.PI*y/maze.R)*Math.sin(x*1.65+phase[1])}}
+function pt(x,y){const q=warp(x,y);return {x:view.ox+q.x*view.s,y:view.oy+q.y*view.s}}
+function cellPt(id){return pt(id%maze.C+.5,Math.floor(id/maze.C)+.5)}
+function unwarp(px,py){const X=(px-view.ox)/view.s,Y=(py-view.oy)/view.s;let x=X,y=Y;for(let i=0;i<10;i++){x=X-.24*Math.sin(Math.PI*x/maze.C)*Math.sin(y*1.65+phase[0]);y=Y-.24*Math.sin(Math.PI*y/maze.R)*Math.sin(x*1.65+phase[1])}return {x,y}}
+function resize(){
+ const r=$('#boardWrap').getBoundingClientRect();if(r.width<2||r.height<2||!maze)return;view.w=Math.floor(r.width-4);view.h=Math.floor(r.height-4);view.dpr=Math.min(devicePixelRatio||1,2);
+ const padX=17,padTop=32,padBottom=25;view.s=Math.min((view.w-2*padX)/maze.C,(view.h-padTop-padBottom)/maze.R);view.s=Math.max(4,view.s);view.ox=(view.w-maze.C*view.s)/2;view.oy=padTop+(view.h-padTop-padBottom-maze.R*view.s)/2;
+ canvas.width=layer.width=Math.round(view.w*view.dpr);canvas.height=layer.height=Math.round(view.h*view.dpr);ctx.setTransform(view.dpr,0,0,view.dpr,0,0);lc.setTransform(view.dpr,0,0,view.dpr,0,0);paintStatic();draw();
+}
+function edgePath(c,x1,y1,x2,y2){const start=pt(x1,y1);c.moveTo(start.x,start.y);for(let k=1;k<=14;k++){const t=k/14,p=pt(x1+(x2-x1)*t,y1+(y2-y1)*t);c.lineTo(p.x,p.y)}}
+function allWalls(c){c.beginPath();for(let y=0;y<maze.R;y++)for(let x=0;x<maze.C;x++){const id=y*maze.C+x;if(y===0)edgePath(c,x,y,x+1,y);if(x===0)edgePath(c,x,y,x,y+1);if(!(maze.cells[id]&2))edgePath(c,x+1,y,x+1,y+1);if(!(maze.cells[id]&4))edgePath(c,x,y+1,x+1,y+1)}}
+function paintStatic(){
+ const c=lc,{w,h,s,ox,oy}=view;c.fillStyle='#fffcf8';c.fillRect(0,0,w,h);
+ // A quiet dotted paper ground, with blossoms kept outside the passages.
+ c.fillStyle='#e5d6e342';for(let x=9;x<w;x+=13)for(let y=9;y<h;y+=13){c.beginPath();c.arc(x,y,.65,0,7);c.fill()}
+ const width=maze.C*s,height=maze.R*s;
+ rr(c,ox-5,oy-5,width+10,height+10,15);c.fillStyle='#fbf5f9';c.fill();
+ // Pale individual squares disappear under the continuous wavy ribbon walls.
+ const glow=c.createRadialGradient(w*.75,h*.2,0,w*.5,h*.5,w*.75);glow.addColorStop(0,'#fffaf4');glow.addColorStop(1,'#f5edf7');c.fillStyle=glow;c.fill();
+ allWalls(c);c.lineCap=c.lineJoin='round';c.save();c.translate(0,2);c.strokeStyle='#d2baca66';c.lineWidth=Math.max(4,s*.175)+2;c.stroke();c.restore();
+ c.strokeStyle='#bca2d1';c.lineWidth=Math.max(4,s*.175);c.stroke();c.strokeStyle='#d3bfe2';c.lineWidth=Math.max(1.7,s*.08);c.stroke();c.strokeStyle='#e5d6ef';c.lineWidth=Math.max(.8,s*.022);c.stroke();
+ // Tiny blossoms mark selected wall junctions, never walkable cells.
+ const hash=(x,y)=>Math.abs(Math.sin(x*13.7+y*37.9+maze.seed*29));
+ for(let y=1;y<maze.R;y++)for(let x=1;x<maze.C;x++)if(hash(x,y)>.96){const p=pt(x,y);flower(c,p.x,p.y,s*.135,hash(x+8,y)>.6?'#eaaac6':'#f6d899',x*.3)}
+ // Start is a mint cushion. The destination is a rose arch and a Czech label.
+ const p=cellPt(maze.start);ellipse(c,p.x,p.y,s*.32,s*.28,'#cfe6d9');ellipse(c,p.x,p.y,s*.21,s*.18,'#e9f3e8');
+ c.font=`900 ${clamp(s*.18,8,12)}px "Trebuchet MS",Arial,sans-serif`;c.textAlign='center';c.fillStyle='#6caa94';c.fillText('START',p.x,oy+height+Math.max(13,s*.23));
+ gate(c,false);
+ // Small paper-garden details in spare margins.
+ if(ox>33){leaf(c,ox*.42,h*.62,18,-.25);flower(c,ox*.42-4,h*.62-19,11,'#eec1d1');leaf(c,w-ox*.42,h*.38,17,.4);flower(c,w-ox*.42+6,h*.38-18,10,'#cdb9e0')}
+ if(oy>52){flower(c,w*.32,oy*.6,8,'#efc2d2');leaf(c,w*.32+7,oy*.6+3,10,.8);sparkle(c,w*.62,oy*.62,5,'#dab974')}
+}
+function gate(c,animate=true){const p=cellPt(maze.goal),s=view.s,r=s*.3;c.save();c.translate(p.x,p.y);ellipse(c,0,r*.45,r*.95,r*.33,'#e8bad04d');c.beginPath();c.moveTo(-r,r*.5);c.lineTo(-r,-r*.3);c.bezierCurveTo(-r,-r*1.57,r,-r*1.57,r,-r*.3);c.lineTo(r,r*.5);c.strokeStyle='#d993b3';c.lineWidth=s*.065;c.lineCap='round';c.stroke();c.strokeStyle='#f2cee0';c.lineWidth=s*.024;c.stroke();flower(c,-r*.86,-r*.62,s*.105,'#eab0c8');flower(c,r*.86,-r*.62,s*.105,'#cbb3df');leaf(c,-r,r*.44,s*.12,-.5);leaf(c,r,r*.44,s*.12,.5);rr(c,-r*.84,-r*.2,r*1.68,r*.75,Math.max(2,s*.06));c.fillStyle='#fff9f1';c.fill();c.strokeStyle='#e7bbca';c.lineWidth=1;c.stroke();c.fillStyle='#a3567c';c.font=`900 ${clamp(s*.2,8,18)}px "Trebuchet MS",Arial,sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillText('CÍL',0,r*.21);if(animate){const k=reduced?1:Math.sin(clock*2)*.15+.85;sparkle(c,r*1.3,-r*.7,s*.07*k,'#dfb96f');sparkle(c,-r*1.2,r*.05,s*.055*k,'#c8a7da')}c.restore()}
+function drawRoute(c,route,col,width,dashed=false){if(!route.length)return;c.save();c.strokeStyle=col;c.lineWidth=width;c.lineCap=c.lineJoin='round';if(dashed)c.setLineDash([1,Math.max(4,view.s*.14)]);c.beginPath();const start=cellPt(route[0]);c.moveTo(start.x,start.y);for(let i=1;i<route.length;i++){const a=route[i-1],b=route[i],ax=a%maze.C+.5,ay=Math.floor(a/maze.C)+.5,bx=b%maze.C+.5,by=Math.floor(b/maze.C)+.5;for(let k=1;k<=12;k++){const t=k/12,p=pt(ax+(bx-ax)*t,ay+(by-ay)*t);c.lineTo(p.x,p.y)}}c.stroke();c.restore()}
+function getPlayerPos(){const a=player.from,b=player.to,t=player.moving?player.t:1;return pt((a%maze.C)+.5+((b%maze.C)-(a%maze.C))*t,Math.floor(a/maze.C)+.5+(Math.floor(b/maze.C)-Math.floor(a/maze.C))*t)}
+function draw(){if(!maze||!player)return;ctx.drawImage(layer,0,0,view.w,view.h);const s=view.s;
+ for(const id of trail){if(id===maze.start||id===maze.goal)continue;const p=cellPt(id);ellipse(ctx,p.x-1,p.y+2,Math.max(1.5,s*.043),Math.max(1.5,s*.043),'#d6a4ba8a')}
+ if(hintTime>0&&hints.length){ctx.globalAlpha=Math.min(1,hintTime);drawRoute(ctx,hints,'#83b9a6',s*.075,true);for(let i=1;i<hints.length;i++){const p=cellPt(hints[i]);sparkle(ctx,p.x,p.y,s*.1,'#72ab95')}ctx.globalAlpha=1}
+ for(let i=0;i<stars.length;i++){const a=stars[i];if(a.got)continue;const p=cellPt(a.cell),bob=reduced?0:Math.sin(clock*2+i*1.6)*s*.025;ellipse(ctx,p.x,p.y+s*.14,s*.14,s*.035,'#dbbc7440');star(ctx,p.x,p.y+bob,s*.15);ellipse(ctx,p.x-s*.025,p.y-s*.043+bob,s*.02,s*.026,'#fff7dc')}
+ gate(ctx,true);
+ const p=getPlayerPos(),moving=player.moving&&!reduced,bob=moving?Math.sin(player.t*Math.PI)*s*.035:0;ellipse(ctx,p.x,p.y+s*.16,s*.22,s*.078,'#98728d20');
+ const off=bump>0&&!reduced?Math.sin(bump*40)*s*.05*bump:0;ctx.save();ctx.translate(p.x+(bumpDir%2?off:0),p.y+(bumpDir%2?0:off)-bob);if(moving)ctx.rotate(Math.sin(player.t*Math.PI)*.045*(player.dir===3?-1:1));animal(ctx,chosen,0,0,s*.235,player.dir===1?1:player.dir===3?-1:0,clock,state==='win');ctx.restore();
+ for(const a of particles){const t=1-a.life/a.max;ctx.globalAlpha=clamp(a.life/a.max,0,1);if(a.star)star(ctx,a.x,a.y,a.r*(.65+t*.35),a.col);else sparkle(ctx,a.x,a.y,a.r,a.col)}ctx.globalAlpha=1;
+}
+function showToast(text,seconds=2.2){$('#toast').textContent=text;$('#toast').classList.add('show');toastUntil=clock+seconds;announce(text)}
+function announce(text){$('#live').textContent=text}
+function updateHUD(){if(!maze)return;$('#mazeTitle').textContent='MAZE '+String(round).padStart(2,'0');$('#mazeSub').textContent=['A little wander','A bigger wander','A grand adventure'][sizeChoice];$('#currentAnimal').src=animalAsset(chosen);$('#currentAnimal').alt=names[chosen];const got=stars.filter(s=>s.got).length;$$('#starCount svg').forEach((s,i)=>s.classList.toggle('filled',i<got));$('#starCount').setAttribute('aria-label',got+' of '+stars.length+' optional stars collected')}
+function initAudio(){if(!audio){try{const A=window.AudioContext||window.webkitAudioContext;if(A)audio=new A()}catch(e){}}if(audio&&audio.state==='suspended')audio.resume().catch(()=>{})}
+function note(f,d=.13,delay=0,vol=.045,type='sine'){if(!sound)return;initAudio();if(!audio)return;try{const now=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(f,now);g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(vol,now+.012);g.gain.exponentialRampToValueAtTime(.001,now+d);o.connect(g);g.connect(audio.destination);o.start(now);o.stop(now+d+.02)}catch(e){}}
+function chime(){note(660,.16);note(880,.22,.08);note(1108,.3,.16)}
+function burst(x,y,n=12){if(reduced)return;for(let i=0;i<n;i++)particles.push({x,y,vx:rand(-45,45),vy:rand(-60,-12),r:rand(2,5),life:.8,max:.8,col:choice(['#e5a6c4','#d1b9e1','#e5be64','#acd0b9']),star:i%3===0})}
+function move(dir){if(state!=='play'||player.moving)return false;const d=DIRS[dir];if(!(maze.cells[player.cell]&d.bit)){if(clock-allowedLastTime>.35){bump=.35;bumpDir=dir;allowedLastTime=clock;note(230,.06,0,.018)}return false}const next=player.cell+d.dx+d.dy*maze.C;if(next<0||next>=maze.N)return false;player.from=player.cell;player.to=next;player.t=0;player.moving=true;player.dir=dir;return true}
+function arrive(){player.cell=player.to;player.from=player.to;player.t=1;player.moving=false;trail.add(player.cell);const gem=stars.find(a=>a.cell===player.cell&&!a.got);if(gem){gem.got=true;const p=cellPt(player.cell);burst(p.x,p.y,15);chime();updateHUD();showToast(stars.every(s=>s.got)?'All three stars! Now find CÍL.':'A little star for you!',1.6)}if(player.cell===maze.goal)win();}
+function desiredDirection(){if(queued!==null){const q=queued;queued=null;return q}if(held!==null)return held;
+ const dest=drag||target;if(!dest)return null;const x=player.cell%maze.C+.5,y=Math.floor(player.cell/maze.C)+.5,dx=dest.x-x,dy=dest.y-y;if(Math.abs(dx)<.45&&Math.abs(dy)<.45){if(!drag)target=null;return null}
+ // Direct steering only, never automatic shortest-path routing. Blocked turns
+ // stop at the wall; the child, not a pathfinding algorithm, chooses the route.
+ const d=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?2:0);return d;
+}
+function step(dt){if(state!=='play')return;clock+=dt;hintTime=Math.max(0,hintTime-dt);bump=Math.max(0,bump-dt);if(toastUntil&&clock>=toastUntil){$('#toast').classList.remove('show');toastUntil=0}
+ if(player.moving){player.t=Math.min(1,player.t+dt*4.2);if(player.t>=1)arrive()}
+ if(state==='play'&&!player.moving){const d=desiredDirection();if(d!==null){if(!move(d)&&!drag)target=null}}
+ for(const a of particles){a.life-=dt;a.x+=a.vx*dt;a.y+=a.vy*dt;a.vy+=45*dt}particles=particles.filter(a=>a.life>0);
+}
+function tick(time){raf=0;const dt=last?Math.min(.045,(time-last)/1000):0;last=time;if(state==='play')step(dt);if(state==='play'||state==='win')draw();if(state==='play')raf=requestAnimationFrame(tick)}
+function ensureLoop(){if(!raf&&state==='play'){last=0;raf=requestAnimationFrame(tick)}}
+function clearInput(){held=null;queued=null;drag=null;target=null;activePointer=null;controlPointer=null;keyboardHeld.clear();$$('.arrow').forEach(b=>b.classList.remove('active'))}
+function setDialog(el){$$('.overlay').forEach(o=>o.hidden=o!==el);$('#app').inert=!!el;if(el){const b=el.querySelector('button[aria-pressed=true]')||el.querySelector('button');requestAnimationFrame(()=>b&&b.focus({preventScroll:true}))}else canvas.focus({preventScroll:true})}
+function pauseGame(){if(state!=='play')return;state='pause';clearInput();drawModalArt('#pauseArt');setDialog($('#pause'));draw()}
+function resume(){state='play';clearInput();setDialog(null);ensureLoop()}
+function syncChoices(){$$('[data-animal]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.animal===chosen));const img=b.querySelector('img');img.src=animalAsset(b.dataset.animal)});$$('[data-size]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.size===sizeChoice)))}
+function openMenu(){state='menu';clearInput();sessionActive=false;$('#confetti').replaceChildren();syncChoices();setDialog($('#menu'));draw()}
+function win(){if(state!=='play')return;state='win';completed++;save();clearInput();drawModalArt('#winArt',true);const count=stars.filter(s=>s.got).length;$('#winStars').innerHTML=Array.from({length:3},(_,i)=>`<svg viewBox="0 0 32 32" style="fill:${i<count?'#efc66c':'#e9dfe6'};stroke:${i<count?'#d7a451':'#d5c6d4'};stroke-width:1.1"><use href="#i-star"/></svg>`).join('');$('#winText').textContent=count===3?'All three stars and a path to CÍL. A beautiful adventure!':`You reached CÍL with ${count} of 3 stars. Every maze is a new adventure!`;setDialog($('#win'));announce('You found the way! '+count+' stars collected.');[523,659,784,1047].forEach((f,i)=>note(f,.38,i*.12,.045));draw();if(!reduced){for(let i=0;i<34;i++){const e=document.createElement('i');e.className='confetti';e.style.left=rand(3,97)+'%';e.style.background=choice(['#e4a0be','#cfb5e0','#eacc7d','#acd0b9']);e.style.animationDelay=rand(0,.5)+'s';e.style.setProperty('--drift',rand(-70,70)+'px');e.addEventListener('animationend',()=>e.remove(),{once:true});$('#confetti').append(e)}}}
+function hint(){if(state!=='play')return;const from=player.moving?player.to:player.cell,path=findPath(maze,from,maze.goal);hints=path.slice(0,Math.min(5,path.length));hintTime=5;showToast('Follow the mint sparkles.',2.3);note(783,.2);note(1046,.3,.11)}
+// Pointer capture and cancellation avoid stuck controls after a touch leaves
+// a button, an orientation change, a browser interruption, or a second finger.
+$$('.arrow').forEach(b=>{
+ b.addEventListener('pointerdown',e=>{if(state!=='play'||controlPointer!==null||activePointer!==null)return;e.preventDefault();initAudio();controlPointer=e.pointerId;const d=DIRS.findIndex(a=>a.name===b.dataset.dir);held=d;queued=d;target=null;drag=null;$$('.arrow').forEach(x=>x.classList.toggle('active',x===b));b.setPointerCapture(e.pointerId)});
+ const release=e=>{if(e.pointerId!==controlPointer)return;controlPointer=null;held=null;b.classList.remove('active');if(b.hasPointerCapture&&b.hasPointerCapture(e.pointerId))b.releasePointerCapture(e.pointerId)};b.addEventListener('pointerup',release);b.addEventListener('pointercancel',e=>{if(e.pointerId===controlPointer){controlPointer=null;held=null;queued=null;b.classList.remove('active')}});b.addEventListener('lostpointercapture',e=>{if(e.pointerId===controlPointer){controlPointer=null;held=null;b.classList.remove('active')}});
+ // Non-pointer keyboard activation / screen-reader click.
+ b.addEventListener('click',e=>{if(e.detail===0&&state==='play'){queued=DIRS.findIndex(a=>a.name===b.dataset.dir)}});
+});
+function canvasPoint(e){const r=canvas.getBoundingClientRect();return unwarp((e.clientX-r.left)*view.w/r.width,(e.clientY-r.top)*view.h/r.height)}
+canvas.addEventListener('pointerdown',e=>{if(state!=='play'||activePointer!==null||controlPointer!==null)return;e.preventDefault();initAudio();clearInput();activePointer=e.pointerId;canvas.setPointerCapture(e.pointerId);drag=canvasPoint(e);target=null});
+canvas.addEventListener('pointermove',e=>{if(state==='play'&&activePointer===e.pointerId){e.preventDefault();drag=canvasPoint(e)}});
+canvas.addEventListener('pointerup',e=>{if(e.pointerId!==activePointer)return;const q=canvasPoint(e);drag=null;activePointer=null;
+ // A tap can walk down a straight corridor. At any wall it stops. Turning is
+ // always a new choice; this deliberately does not solve the maze for you.
+ const u=player.moving?player.to:player.cell,x=u%maze.C+.5,y=Math.floor(u/maze.C)+.5;
+ target=(Math.abs(q.x-x)<.49||Math.abs(q.y-y)<.49)?q:null;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId)});
+canvas.addEventListener('pointercancel',()=>{activePointer=null;drag=null;target=null;queued=null});canvas.addEventListener('lostpointercapture',()=>{activePointer=null;drag=null});
+const keys={ArrowUp:0,w:0,W:0,ArrowRight:1,d:1,D:1,ArrowDown:2,s:2,S:2,ArrowLeft:3,a:3,A:3};
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){if(state==='play')pauseGame();else if(state==='pause')resume();return}if(!(e.key in keys)||state!=='play')return;e.preventDefault();initAudio();if(!e.repeat){keyboardHeld.add(e.key);held=keys[e.key];queued=held;target=null;drag=null;$$('.arrow').forEach(b=>b.classList.toggle('active',DIRS[held].name===b.dataset.dir))}});
+window.addEventListener('keyup',e=>{if(!(e.key in keys))return;keyboardHeld.delete(e.key);const k=[...keyboardHeld].pop();held=k===undefined?null:keys[k];$$('.arrow').forEach(b=>b.classList.toggle('active',held!==null&&DIRS[held].name===b.dataset.dir))});
+$('#hintBtn').onclick=hint;
+$('#soundBtn').onclick=()=>{sound=!sound;$('#soundBtn').setAttribute('aria-pressed',String(sound));$('#soundBtn').setAttribute('aria-label','Turn sound '+(sound?'off':'on'));$('#soundMark').setAttribute('d',sound?'M16 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14':'m16 9 6 6m0-6-6 6');if(sound){initAudio();note(660,.2)}};
+$('#pauseBtn').onclick=pauseGame;$('#resumeBtn').onclick=resume;$('#newMazeBtn').onclick=openMenu;
+$('#playBtn').onclick=()=>{round=1;initAudio();setDialog(null);setup();showToast('Find CÍL. Stars are just a bonus!',3)};
+$('#nextBtn').onclick=()=>{round++;$('#confetti').replaceChildren();setDialog(null);setup();showToast('A brand-new garden to explore.',2.2)};
+$('#chooseBtn').onclick=openMenu;
+$('#changeAnimal').onclick=()=>{if(state!=='play')return;state='animal';clearInput();syncChoices();setDialog($('#animalModal'))};$('#animalDone').onclick=resume;
+$('#quickAnimals').innerHTML=$('#animalChoices').innerHTML;
+$$('[data-animal]').forEach(b=>b.onclick=()=>{chosen=b.dataset.animal;syncChoices();save();updateHUD();draw();note(chosen==='kitten'?659:chosen==='bunny'?784:880,.15)});
+$$('[data-size]').forEach(b=>b.onclick=()=>{sizeChoice=+b.dataset.size;syncChoices();save()});
+// Dialog focus remains inside the open panel, including in browsers without inert.
+window.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const modal=$$('.overlay').find(x=>!x.hidden);if(!modal)return;const focusable=[...modal.querySelectorAll('button:not(:disabled)')],first=focusable[0],end=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){end.focus();e.preventDefault()}else if(!e.shiftKey&&document.activeElement===end){first.focus();e.preventDefault()}});
+window.addEventListener('blur',()=>{clearInput();activePointer=null;if(state==='play')pauseGame()});document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInput();activePointer=null;if(state==='play')pauseGame()}});
+window.addEventListener('resize',()=>{clearInput();activePointer=null;resize()});if(window.ResizeObserver)new ResizeObserver(()=>resize()).observe($('#boardWrap'));
+syncChoices();drawMenuArt();setup(true);setDialog($('#menu'));
+// The test interface is present only when explicitly opened with ?test=1.
+if(new URLSearchParams(location.search).get('test')==='1')window.PetalTest={
+ generate,findPath,neighbors,warp,pt,cellPt,unwarp,resize,step,move,hint,
+ get state(){return state},get maze(){return maze},get player(){return {...player}},get stars(){return stars.map(x=>({...x}))},get view(){return {...view}},get chosen(){return chosen},get trail(){return [...trail]},get held(){return held},get hintTime(){return hintTime},get target(){return target},get clock(){return clock},get phase(){return [...phase]},get round(){return round},
+ advance(n=1){for(let i=0;i<n;i++)step(1/60);draw()},snapshot(){return{state,maze,player:{...player},stars,chosen,sizeChoice,round,view,trail:[...trail]}},
+ validate(m){let edges=0;for(let u=0;u<m.N;u++)for(const d of DIRS)if(m.cells[u]&d.bit){const x=u%m.C+d.dx,y=Math.floor(u/m.C)+d.dy,v=y*m.C+x;if(x<0||x>=m.C||y<0||y>=m.R)return false;if(!(m.cells[v]&d.op))return false;edges++}const seen=new Set([m.start]),q=[m.start];for(let k=0;k<q.length;k++)for(const v of neighbors(m,q[k]))if(!seen.has(v)){seen.add(v);q.push(v)}return seen.size===m.N&&edges/2===m.N-1&&findPath(m,m.start,m.goal).length>1}
+};
+})();
+</script>
+</body>
+</html>
