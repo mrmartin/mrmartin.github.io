@@ -2,7 +2,8 @@
 layout: post
 title:  "Stream xscreensaver live"
 date:   2024-05-24 15:10:30 +0100
-categories: technology, programming, media
+categories: technology programming media
+redirect_from: /technology,/programming,/media/2024/05/24/stream-xscreensaver-live.html
 ---
 
 {% include analytics.html %}

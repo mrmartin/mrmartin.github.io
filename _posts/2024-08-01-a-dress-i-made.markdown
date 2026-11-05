@@ -6,6 +6,6 @@ categories: art
 ---
 {% include analytics.html %}
 
-![The dress]({{ site.url }}/images/saty_martina.jpg)
+![Yellow dress with a white lace top, worn standing by a grand piano]({{ "/images/martina_saty_vyber/PA290035.JPG" | relative_url }})
 
 I made this back in 2015

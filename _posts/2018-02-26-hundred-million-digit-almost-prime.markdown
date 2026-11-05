@@ -2,7 +2,8 @@
 layout: post
 title:  "Hundred Million Digit Almost Prime"
 date:   2018-02-26 18:10:30 +0100
-categories: computers, mathematics
+categories: computers mathematics
+redirect_from: /computers,/mathematics/2018/02/26/hundred-million-digit-almost-prime.html
 ---
 
 {% include analytics.html %}

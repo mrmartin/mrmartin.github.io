@@ -2,7 +2,8 @@
 layout: post
 title:  "Flattest Landlocked Country"
 date:   2018-06-26 18:10:30 +0100
-categories: geography, data science
+categories: geography data-science
+redirect_from: /geography,/data/science/2018/06/26/Flattest_landlocked_country.html
 ---
 
 {% include analytics.html %}

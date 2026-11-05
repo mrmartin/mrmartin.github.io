@@ -2,7 +2,8 @@
 layout: post
 title:  "Postup Při Budování Menhiru v ČR: Zkušenosti a Poznámky"
 date:   2023-09-04 15:10:30 +0100
-categories: architecture, engineering, geology
+categories: architecture engineering geology
+redirect_from: /architecture,/engineering,/geology/2023/09/04/menhir.html
 ---
 
 {% include analytics.html %}

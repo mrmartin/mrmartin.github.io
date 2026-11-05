@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Matter, Mind and Models"
-date:   2017-06-15 18:10:30 +0100
+date:   2017-09-01 18:10:30 +0100
 categories: computers
+redirect_from: /computers/2017/06/15/matter-mind-and-models.html
 ---
 
 {% include analytics.html %}

@@ -2,7 +2,9 @@
 layout: post
 title:  "Practical Approaches to Aquaponics on Mars"
 date:   2023-09-04 15:10:30 +0100
-categories: aquaculture, technology, space_agriculture
+categories: aquaculture technology space_agriculture
+math: true
+redirect_from: /aquaculture,/technology,/space_agriculture/2023/09/04/mars-aquaphonics-yield.html
 ---
 
 {% include analytics.html %}
@@ -18,10 +20,10 @@ $$
 $$
 
 where:
-- $π$ is the osmotic pressure
-- $i$ is the van 't Hoff factor
-- $R$ is the universal gas constant
-- $T$ is the temperature in Kelvin
+- $$π$$ is the osmotic pressure
+- $$i$$ is the van 't Hoff factor
+- $$R$$ is the universal gas constant
+- $$T$$ is the temperature in Kelvin
 
 Introducing fish to a tank of distilled water can induce osmotic imbalance, potentially endangering the fish due to the rapid influx or outflux of water through their gills and skin. By adding essential minerals obtained from the evaporation of Earth freshwater, it would be possible to create a more stable environment for the fish, mitigating the adverse effects of osmosis.
 

@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Effective Cooperative"
-date:   2020-01-15 18:10:30 +0100
+date:   2019-12-08 18:10:30 +0100
 categories: social business
+redirect_from: /social/business/2020/01/15/Effective-Cooperative.html
 ---
 
 {% include analytics.html %}

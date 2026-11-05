@@ -2,7 +2,8 @@
 layout: post
 title:  "Does beer affect life expectancy?"
 date:   2018-07-30 18:10:30 +0100
-categories: beer, data science
+categories: beer data-science
+redirect_from: /beer,/data/science/2018/07/30/Does_beer_affect_life_expectancy.html
 ---
 
 {% include analytics.html %}
