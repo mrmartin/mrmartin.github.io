@@ -35,6 +35,7 @@ Things I have made: companies, research, and things built for fun. Projects that
 
 ## My Hobbies
 
+- [Serverless video calls](https://mrmartin.net/bep46-webrtc/call.html), a video call that is just a link: no account, no server, everyone who watches helps carry the stream ([source](https://github.com/mrmartin/bep46-webrtc))
 - [Petal Paths]({{ "/petal-paths.html" | relative_url }}), a garden maze game for young children: play as a kitten, bunny or unicorn
 - [Letter Hunt]({{ "/letter-hunt.html" | relative_url }}), a capital-letter matching game for young children, with no timers or penalties
 - [T-Rex: Secret Friends]({{ "/trex-secret-friends.html" | relative_url }}), a memory game for young children: remember where the animals hid and bring them home
