@@ -35,6 +35,9 @@ Things I have made: companies, research, and things built for fun. Projects that
 
 ## My Hobbies
 
+- [Petal Paths]({{ "/petal-paths.html" | relative_url }}), a garden maze game for young children: play as a kitten, bunny or unicorn
+- [Letter Hunt]({{ "/letter-hunt.html" | relative_url }}), a capital-letter matching game for young children, with no timers or penalties
+- [T-Rex: Secret Friends]({{ "/trex-secret-friends.html" | relative_url }}), a memory game for young children: remember where the animals hid and bring them home
 - [My Electro CD](https://nejistotatrolejbusu.bandcamp.com/)
 - [Live Band Recordings](https://soundcloud.com/nejistotatrolejbusu)
 - [The Hard Way](https://www.amazon.com/Hard-Way-Martin-Kol%C3%A1%C5%99/dp/1704225442) The book I wrote

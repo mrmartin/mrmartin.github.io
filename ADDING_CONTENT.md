@@ -1,15 +1,108 @@
-# Adding content
+# Adding content to mrmartin.net
 
-This site is a [Jekyll](https://jekyllrb.com/) blog using the **minima** theme. GitHub Pages builds it automatically on every push, and it is served at <https://mrmartin.net> (set by `CNAME`). You don't need to build anything yourself. A push to the default branch publishes the site.
+This repository, [mrmartin/mrmartin.github.io](https://github.com/mrmartin/mrmartin.github.io), is the source of <https://mrmartin.net>, Martin Kolar's personal website. Martin's other projects link to this file so that Martin, or an AI agent working on one of those projects, can add the project to the site.
 
-## How the site is laid out
+If you're adding something:
+
+1. Use [Deciding what to add](#deciding-what-to-add) to choose what kind of content it is, or whether to publish it at all.
+2. Follow the how-to section for that kind of content.
+3. Submit it as described in [Submitting changes](#submitting-changes).
+
+## Deciding what to add
+
+Work through these questions in order. Stop at the first one that gives an answer.
+
+### 1. Should it be on the web at all?
+
+Everything here is public and free to read. The site is open, and the repository is public on GitHub, so any file in the repository can be downloaded even if no page links to it. Deleting a file later doesn't remove it from the git history.
+
+**If the information shouldn't be freely available on the web, don't add it to this repository at all.** That includes:
+
+- credentials, API keys, passwords, tokens, private URLs, IP addresses and stream links
+- personal information about other people, such as contact details, addresses, or photos of people who haven't agreed to be published
+- material that is paid for or commercially confidential, such as client work, business plans, unreleased product details, or code and data that Martin sells
+- research that isn't ready to be public, such as results planned for a paper that hasn't been submitted, or anything under embargo
+
+If you're not sure, leave it out and ask Martin.
+
+### 2. Is it Martin's own work?
+
+Martin's own work is anything Martin made, plus anything Martin instructed an AI to make.
+
+- **No:** someone else's website, article, tool, dataset, music or video goes on the **[Links](#editing-the-pages)** page (`links.md`). Links is only for other people's work. Never list Martin's own work there.
+- **Yes:** go to question 3.
+
+### 3. Does the work have its own web address?
+
+The work has its own web address if there is a URL where the work itself can be used, seen or downloaded. For example:
+
+- its own website or web page
+- a GitHub repository or GitHub Pages site
+- an API endpoint
+- an app or shop listing
+- a video, an album page, or a paper on arXiv
+- a standalone page hosted on this site, like the games
+
+A post on this site that only *describes* the work doesn't count.
+
+- **Yes:** add an entry to **[Projects](#editing-the-pages)** (`projects.md`). This is required. Go to question 4 to choose the section. You can also write a post if there is something worth saying or showing, such as an announcement, screenshots or the story behind it. A post is optional.
+- **No:** write a **[post](#writing-a-post)** that contains the work itself: the photos, the write-up, the results, the files. Don't add it to Projects or Links.
+
+  *Example:* Martin repairs an old analogue camera and takes photos with it. That becomes a post with the photos and the story of the repair.
+
+### 4. Which section of Projects?
+
+Choose by the reason the work exists:
+
+| Section | Use it when | Examples already listed |
+|---|---|---|
+| **My Work** | It makes money, or could make money: companies, products, services, commercial apps, patents | sharedproperty.co.uk, Subtitlecat, lkrobots |
+| **My Research** | It explores a topic and could be published on arXiv or in a peer-reviewed venue: papers, datasets, methods, theses | the PhD, FFHQ features, publication lists |
+| **My Hobbies** | Martin does it for enjoyment: music, books, art, games, things built for fun | the electro CD, The Hard Way, the games |
+
+If more than one fits, choose the one that is the main reason the work exists. If that's unclear, ask Martin.
+
+Inside each section, active projects come first. When a project stops working or its site goes offline, move its line to the `### Defunct` list at the end of the same section. If possible, point the link at a `web.archive.org` copy. Don't delete it.
+
+### Post dates
+
+**Every post is dated the day it's created**, even if the work was done earlier. Never backdate a post. If the work happened in the past, say so in the text ("I repaired this camera in 2019…"). The home page and the RSS feed are sorted by date, so a backdated post would be buried in the list and missed by feed readers.
+
+### Quick reference
+
+| What you're adding | Where it goes |
+|---|---|
+| Something that shouldn't be freely available on the web | Nowhere. Don't add it to the repository |
+| Someone else's site, article, tool or media | `links.md`, under a matching `*` heading (create one if none fits) |
+| Martin's work with its own web address that makes money or could | `projects.md` → My Work, plus an optional post |
+| Martin's work with its own web address that could be published as research | `projects.md` → My Research, plus an optional post |
+| Martin's work with its own web address, done for fun | `projects.md` → My Hobbies, plus an optional post |
+| Martin's work with no web address of its own | A new post containing the work, dated today. Not in Projects or Links |
+| An essay, idea or update that isn't a single piece of work | A new post, dated today |
+| A browser game or web app that needs a home | A standalone HTML file on this site ([Adding a game](#adding-a-game-or-any-standalone-html-page)), then a Projects entry for it |
+| A change to Martin's bio, motto or long-term plans | Edit `about.md`, `motto.md` or `todo.md` |
+
+## Submitting changes
+
+Changes reach <https://mrmartin.net> only through a pull request that Martin reviews and merges. **Don't push to `master`**, because anything pushed there goes live within a few minutes.
+
+1. Clone `https://github.com/mrmartin/mrmartin.github.io` and create a new branch from `master`.
+2. Make the change by following the how-to sections below. Before you add an entry, check that it isn't already on the site, and update the existing entry if it is.
+3. Optionally, [preview the site locally](#previewing-locally) to check that it builds and looks right.
+4. Open a pull request against `master`. Say what you added, where you put it, and which rule from [Deciding what to add](#deciding-what-to-add) decided that. If you skipped something under rule 1, say so in the description without including the details.
+
+## How the site works
+
+This site is a [Jekyll](https://jekyllrb.com/) blog using the **minima** theme. GitHub Pages builds it automatically whenever `master` changes, and it is served at <https://mrmartin.net> (set by `CNAME`). You don't need to build anything yourself.
+
+### How the site is laid out
 
 | Path | What it is | Public URL |
 |---|---|---|
 | `index.html` | Home page: lists every post, newest first | `/` |
 | `_posts/` | Blog posts, one Markdown file each | `/<categories>/YYYY/MM/DD/<slug>.html` |
 | `about.md` | "About Me" page | `/about/` |
-| `projects.md` | "Projects": things you made (work, research, hobbies), with defunct ones grouped at the end of each section | `/projects/` |
+| `projects.md` | "Projects": Martin's own work that has its own web address (work, research, hobbies), with defunct ones grouped at the end of each section | `/projects/` |
 | `links.md` | "Links": a categorised list of other people's sites, reading and tools | `/links/` |
 | `motto.md` | "Hi, I'm Martin": a personal statement | `/motto/` |
 | `todo.md` | "To Do List": long-term projects | `/todo/` |
@@ -27,7 +120,7 @@ The header menu is generated by minima. It lists every page that has a `title:` 
 
 ## Writing a post
 
-1. Create a file in `_posts/` named `YYYY-MM-DD-short-slug.markdown` (or `.md`).
+1. Create a file in `_posts/` named `YYYY-MM-DD-short-slug.markdown` (or `.md`), using **today's date** (see [Post dates](#post-dates)).
    - Use lowercase letters, digits and hyphens in the slug. Don't use spaces, `?`, `#` or `%`, because the slug becomes the URL.
    - The date in the file name should match the `date:` in the front matter.
 2. Start the file with front matter:
@@ -135,10 +228,15 @@ kramdown can read `|` inside maths as a table column separator, even in a normal
 
 ## Adding a game (or any standalone HTML page)
 
-The three games follow this pattern:
+Hosting a page here gives a piece of work its own web address, so it goes in Projects. The three games follow this pattern:
 
 1. Put a self-contained file such as `my-game.html` in the repository root. Use a single file with inline CSS and JS and no front matter. Jekyll copies it unchanged to `/my-game.html`.
-2. Write a companion post in `_posts/` with `categories: games` that describes the game and links to it:
+2. Add it to `projects.md` in the right section (games usually go in My Hobbies):
+
+   ```markdown
+   - [My Game]({{ "/my-game.html" | relative_url }}), one-line description
+   ```
+3. Optionally, write a post dated today with `categories: games` that describes the game and links to it:
 
    ```markdown
    [Play My Game fullscreen]({{ "/my-game.html" | relative_url }}){: target="_blank" rel="noopener"}
@@ -151,7 +249,7 @@ If you start the HTML file with `---` front matter, Jekyll processes it as a tem
 All five pages use `layout: page` and a `permalink:`. Edit the Markdown directly.
 
 - **About (`about.md`)**: written like a paper (Abstract, Motivation, Hypothesis, Method, Results, Prior Work, Supplementary Material). Add to the matching section. "Results" and "Supplementary Material" still contain placeholder notes to replace with real content.
-- **Projects (`projects.md`)**: things you made, in three sections: `## My Work`, `## My Research` and `## My Hobbies`. Active projects come first. Projects that no longer run go under a `### Defunct` heading at the end of their section:
+- **Projects (`projects.md`)**: Martin's own work that has its own web address (see [Deciding what to add](#deciding-what-to-add)), in three sections: `## My Work`, `## My Research` and `## My Hobbies`. Active projects come first. Projects that no longer run go under a `### Defunct` heading at the end of their section:
 
   ```markdown
   ## My Work
@@ -172,7 +270,7 @@ All five pages use `layout: page` and a `permalink:`. Edit the Markdown directly
     - [Link text](https://example.com) short description
   ```
 
-  Start a new section with a new top-level `* Heading`. Things you made go on Projects, not here.
+  Start a new section with a new top-level `* Heading`. Martin's own work never goes here. It goes on Projects or in a post.
 - **Motto (`motto.md`)**: free prose.
 - **To Do (`todo.md`)**: top-level bullets are projects, ordered by importance. Numbered sub-items are steps, ordered chronologically.
 
