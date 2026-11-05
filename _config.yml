@@ -27,3 +27,13 @@ markdown: kramdown
 kramdown:
   math_engine: mathjax
 theme: minima
+
+# Repository docs, not site pages (their Liquid examples would break the build).
+# Setting exclude replaces Jekyll's defaults, so those are listed here too.
+exclude:
+  - README.md
+  - ADDING_CONTENT.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
