@@ -5,7 +5,7 @@ permalink: /projects/
 ---
 {% include analytics.html %}
 
-Things I have made: companies, research, and things built for fun. Projects that no longer run are listed under *Defunct* in each section.
+Things I have made: companies, research, and things built for fun. Projects that no longer run are marked (defunct) and listed at the end of each section.
 
 ## My Work
 
@@ -19,13 +19,10 @@ Things I have made: companies, research, and things built for fun. Projects that
 - [FFHQ features](https://github.com/DCGM/ffhq-features-dataset), a dataset of faces with known features
 - [Basepack](https://github.com/mrmartin/basepack), a reference dataset and method for irregular polytope packing
 - [sharedproperty.co.uk](https://www.sharedproperty.co.uk), an estate agent that lets people purchase parts of properties
-
-### Defunct
-
-- [ENIGMAtalk](http://enigmatalk.com/) app for secure text communications over insecure channels ([demo](https://youtu.be/ikA4Sqq7BZQ))
-- [Street Violence Map](http://streetviolence.org/)
-- [HOJNO.CZ](http://www.hojno.cz/), my electronics shop
-- [lkrobots](https://web.archive.org/web/20220520005104/https://www.lkrobots.com/), my self-replicating robot startup ([datasheet](https://mrmartin.net/CR_168_datasheet.pdf), [videos](https://youtube.com/playlist?list=PLCNBXZNUvGaNSGPYEgwaA41HhTq4pedmg))
+- [ENIGMAtalk](http://enigmatalk.com/) app for secure text communications over insecure channels ([demo](https://youtu.be/ikA4Sqq7BZQ)) (defunct)
+- [Street Violence Map](http://streetviolence.org/) (defunct)
+- [HOJNO.CZ](http://www.hojno.cz/), my electronics shop (defunct)
+- [lkrobots](https://web.archive.org/web/20220520005104/https://www.lkrobots.com/), my self-replicating robot startup ([datasheet](https://mrmartin.net/CR_168_datasheet.pdf), [videos](https://youtube.com/playlist?list=PLCNBXZNUvGaNSGPYEgwaA41HhTq4pedmg)) (defunct)
 
 ## My Research
 

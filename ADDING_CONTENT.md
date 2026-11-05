@@ -62,7 +62,7 @@ Choose by the reason the work exists:
 
 If more than one fits, choose the one that is the main reason the work exists. If that's unclear, ask Martin.
 
-Inside each section, active projects come first. When a project stops working or its site goes offline, move its line to the `### Defunct` list at the end of the same section. If possible, point the link at a `web.archive.org` copy. Don't delete it.
+Inside each section, active projects come first. When a project stops working or its site goes offline, add `(defunct)` to the end of its line and move it to the end of the same section, after the active projects. If possible, point the link at a `web.archive.org` copy. Don't delete it.
 
 ### Post dates
 
@@ -102,7 +102,7 @@ This site is a [Jekyll](https://jekyllrb.com/) blog using the **minima** theme. 
 | `index.html` | Home page: lists every post, newest first | `/` |
 | `_posts/` | Blog posts, one Markdown file each | `/<categories>/YYYY/MM/DD/<slug>.html` |
 | `about.md` | "About Me" page | `/about/` |
-| `projects.md` | "Projects": Martin's own work that has its own web address (work, research, hobbies), with defunct ones grouped at the end of each section | `/projects/` |
+| `projects.md` | "Projects": Martin's own work that has its own web address (work, research, hobbies), with defunct ones marked `(defunct)` at the end of each section | `/projects/` |
 | `links.md` | "Links": a categorised list of other people's sites, reading and tools | `/links/` |
 | `motto.md` | "Hi, I'm Martin": a personal statement | `/motto/` |
 | `feed.xml` | RSS feed of the 10 latest posts | `/feed.xml` |
@@ -248,20 +248,17 @@ If you start the HTML file with `---` front matter, Jekyll processes it as a tem
 All four pages use `layout: page` and a `permalink:`. Edit the Markdown directly.
 
 - **About (`about.md`)**: written like a paper (Abstract, Motivation, Hypothesis, Method, Results, Prior Work, Supplementary Material). Add to the matching section. "Results" and "Supplementary Material" still contain placeholder notes to replace with real content.
-- **Projects (`projects.md`)**: Martin's own work that has its own web address (see [Deciding what to add](#deciding-what-to-add)), in three sections: `## My Work`, `## My Research` and `## My Hobbies`. Active projects come first. Projects that no longer run go under a `### Defunct` heading at the end of their section:
+- **Projects (`projects.md`)**: Martin's own work that has its own web address (see [Deciding what to add](#deciding-what-to-add)), in three sections: `## My Work`, `## My Research` and `## My Hobbies`. Active projects come first. Projects that no longer run are marked `(defunct)` and go at the end of their section:
 
   ```markdown
   ## My Work
 
   - [New thing](https://example.com), one-line description
   - Unlinked project, one-line description
-
-  ### Defunct
-
-  - [Old thing](https://web.archive.org/web/2020/https://old.example.com), one-line description
+  - [Old thing](https://web.archive.org/web/2020/https://old.example.com), one-line description (defunct)
   ```
 
-  When a project shuts down, move its line into that section's `### Defunct` list (create the heading if the section doesn't have one yet). If possible, point the link at a `web.archive.org` copy.
+  When a project shuts down, add `(defunct)` to the end of its line and move it below the section's active projects. If possible, point the link at a `web.archive.org` copy.
 - **Links (`links.md`)**: other people's sites, as a two-level bullet list. Add a line under the right heading:
 
   ```markdown
