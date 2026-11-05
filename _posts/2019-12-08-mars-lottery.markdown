@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Mars Lottery"
-date:   2018-12-08 18:10:30 +0100
-categories: business, science, space
+date:   2019-12-08 18:10:30 +0100
+categories: business science space
+redirect_from: /business,/science,/space/2018/12/08/Mars-Lottery.html
 ---
 
 {% include analytics.html %}

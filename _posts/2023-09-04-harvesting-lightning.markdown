@@ -2,7 +2,9 @@
 layout: post
 title:  "Harnessing the Power of Lightning: A Glimpse into the Future of Energy"
 date:   2023-09-04 12:10:30 +0100
-categories: technology, energy
+categories: technology energy
+math: true
+redirect_from: /technology,/energy/2023/09/04/harvesting-lightning.html
 ---
 
 {% include analytics.html %}

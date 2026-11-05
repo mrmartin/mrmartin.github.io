@@ -2,7 +2,8 @@
 layout: post
 title:  "Automate Government"
 date:   2024-03-15 15:10:30 +0100
-categories: philosophy, politics, freedom
+categories: philosophy politics freedom
+redirect_from: /philosophy,/politics,/freedom/2024/03/15/automate-government.html
 ---
 
 {% include analytics.html %}

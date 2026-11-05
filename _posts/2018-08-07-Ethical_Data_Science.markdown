@@ -2,7 +2,8 @@
 layout: post
 title:  "Ethical Data Science"
 date:   2018-08-07 18:10:30 +0100
-categories: philosophy, data science
+categories: philosophy data-science
+redirect_from: /philosophy,/data/science/2018/08/07/Ethical_Data_Science.html
 ---
 
 {% include analytics.html %}
