@@ -26,12 +26,14 @@ Things I have made: companies, research, and things built for fun. Projects that
 
 ## My Research
 
+- [Towers at Infinity]({{ "/towers-at-infinity.html" | relative_url }}), an interactive visualizer of the region between two fractal towers that converge but meet only at infinity ([write-up]({% post_url 2026-11-05-towers-at-infinity %}))
 - [PhD in Computer Vision with Active Learning](https://www.fit.vut.cz/study/phd-thesis/754/.en)
 - [My publications at Brno University of Technology](https://www.vut.cz/en/people/martin-kolar-149818/publikace#navigace-vizitka)
 - [My publications at the University of Warwick](http://wrap.warwick.ac.uk/view/author_id/22745.html)
 
 ## My Hobbies
 
+- [Serverless video calls](https://mrmartin.net/bep46-webrtc/call.html), a video call that is just a link: no account, no server, everyone who watches helps carry the stream ([source](https://github.com/mrmartin/bep46-webrtc))
 - [Petal Paths]({{ "/petal-paths.html" | relative_url }}), a garden maze game for young children: play as a kitten, bunny or unicorn
 - [Letter Hunt]({{ "/letter-hunt.html" | relative_url }}), a capital-letter matching game for young children, with no timers or penalties
 - [T-Rex: Secret Friends]({{ "/trex-secret-friends.html" | relative_url }}), a memory game for young children: remember where the animals hid and bring them home

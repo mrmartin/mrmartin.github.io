@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Towers at Infinity</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one tall instrument — the climb view on top, a mono readout strip, the controls. */
+:root{
+  --bg:#edf0f5; --fg:#161c2a; --muted:#5e6779; --line:#c7cedb; --panel:#f7f8fb;
+  --accent:#0d8a76; --gap:rgba(13,138,118,.55); --tower-l:#2a3a63; --tower-r:#5a2e1c; --floor:rgba(255,255,255,.22);
+  --display:'IBM Plex Serif',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#0b0f17; --fg:#e4e8f0; --muted:#8c95a7; --line:#242d3d; --panel:#111823;
+  --accent:#3bd4b4; --gap:rgba(59,212,180,.5); --tower-l:#223055; --tower-r:#4a2619; --floor:rgba(255,255,255,.14); color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0b0f17; --fg:#e4e8f0; --muted:#8c95a7; --line:#242d3d; --panel:#111823;
+  --accent:#3bd4b4; --gap:rgba(59,212,180,.5); --tower-l:#223055; --tower-r:#4a2619; --floor:rgba(255,255,255,.14); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--display);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:14px 28px;max-width:980px;margin:0 auto}
+h1{font-size:1.55rem;font-weight:600;margin:0 0 .2rem;text-wrap:balance;letter-spacing:-.01em}
+.def{margin:0 0 .9rem;color:var(--muted);font-size:.95rem;line-height:1.45;max-width:64ch}
+.def code{font-family:var(--mono);font-size:.88em;color:var(--fg)}
+.stage{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden}
+canvas{display:block;width:100%;height:58vh;min-height:300px;max-height:640px;touch-action:none;cursor:grab}
+canvas.drag{cursor:grabbing}
+.hint{position:absolute;right:10px;bottom:8px;font-family:var(--mono);font-size:.68rem;color:var(--muted);pointer-events:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;font-family:var(--mono)}
+.readout div{background:var(--panel);padding:8px 10px;min-width:0}
+.readout b{display:block;font-weight:400;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.readout span{font-size:.95rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+button{font-family:var(--mono);font-size:.8rem;padding:7px 12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:3px;cursor:pointer}
+button:hover{border-color:var(--accent)} button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 22px;margin-top:14px}
+label{font-family:var(--mono);font-size:.74rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+label em{font-style:normal;color:var(--fg);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font-family:var(--mono);font-size:.8rem;padding:5px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:3px}
+.notes{margin-top:18px;color:var(--muted);font-size:.9rem;line-height:1.5;max-width:66ch}
+.notes p{margin:.4rem 0}
+@media (prefers-reduced-motion:reduce){ * {transition:none!important} }
+</style>
+</head>
+<body>
+
+<h1>Towers at Infinity</h1>
+<p class="def">Two infinitely tall towers. At ground level their inner walls stand at <code>x = +1</code> and <code>x = −1</code>; with height <code>y</code> they lean inward along an envelope <code>±g(y)</code>, <code>g(0)=1</code>, <code>g → 0</code>. Each wall is a fractal curve riding on that envelope. The towers meet only at infinity. The object is the spire of space between them: infinite height, width shrinking without ever reaching zero.</p>
+
+<div class="stage">
+  <canvas id="cv"></canvas>
+  <div class="hint">drag to climb · wheel / pinch · double-tap</div>
+</div>
+
+<div class="readout">
+  <div><b>height y (view centre)</b><span id="rY">0</span></div>
+  <div><b>gap width 2g(y)</b><span id="rGap">2</span></div>
+  <div><b>x-magnification</b><span id="rMag">1×</span></div>
+  <div><b>gap area below y / total</b><span id="rArea">–</span></div>
+  <div><b>wall dims (left · right)</b><span id="rDim">–</span></div>
+  <div><b>gap at pointer</b><span id="rPtr">–</span></div>
+</div>
+
+<div class="bar">
+  <button id="climb">Climb</button>
+  <button id="track" class="on">Track the gap</button>
+  <button id="reset">Ground level</button>
+</div>
+
+<div class="ctl">
+  <label>envelope g(y)
+    <select id="mode"><option value="exp">exponential: q^y</option><option value="pow">power law: (1+y)^−p</option></select></label>
+  <label>decay (q, or p) <em id="vq"></em><input type="range" id="q" min="0.3" max="0.95" step="0.005" value="0.6"></label>
+  <label>wall roughness ρ <em id="vrho"></em><input type="range" id="rho" min="0" max="0.9" step="0.01" value="0.45"></label>
+  <label>left wall weight w<sub>l</sub> (Takagi, base 2) <em id="vwl"></em><input type="range" id="wl" min="0.3" max="0.85" step="0.005" value="0.6"></label>
+  <label>right wall weight w<sub>r</sub> (Takagi, base 3) <em id="vwr"></em><input type="range" id="wr" min="0.2" max="0.8" step="0.005" value="0.45"></label>
+  <label>levels in view <em id="vh"></em><input type="range" id="hv" min="2" max="40" step="1" value="8"></label>
+</div>
+
+<div class="notes">
+  <p><strong>Construction.</strong> Left wall <code>x = −g(y)·(1 + ρ·T<sub>2</sub>(y))</code>, right wall <code>x = +g(y)·(1 + ρ·T<sub>3</sub>(y))</code>, where T<sub>2</sub> and T<sub>3</sub> are Takagi functions with bases 2 and 3 (period one storey). The walls are mirror-symmetric in envelope but not congruent: different fractal, same ladder. Because the roughness is proportional to g, every storey looks like the last once the x-axis is rescaled by 1/g — which is what “Track the gap” does. Switch it off to see the true spire.</p>
+  <p><strong>Meeting at infinity.</strong> The width 2g(y) is positive at every finite height. With exponential decay the gap's total area is 2/ln(1/q): a finite region of infinite height. With power-law decay and p ≤ 1 the area diverges while the width still goes to zero — the towers converge but the space between them is unbounded.</p>
+</div>
+
+<script>
+(function(){
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+const P={mode:'exp',q:.6,rho:.45,wl:.6,wr:.45,hv:8};
+const view={yc:4,xc:0,hv:8,track:true,xspan:3}; // xspan: half-width in (scaled) x units
+let hvMin=2;
+const $=id=>document.getElementById(id);
+const fmt=v=>{ if(v===0)return'0'; const a=Math.abs(v); return (a<1e-3||a>=1e4)?v.toExponential(2):v.toFixed(a<1?4:3); };
+
+function g(y){ return P.mode==='exp'?Math.pow(P.q,y):Math.pow(1+y,-pExp()); }
+function pExp(){ return (P.q-0.3)/(0.95-0.3)*2.7+0.3; } // reuse slider: p in [0.3,3]
+function areaBelow(y){ if(P.mode==='exp'){const L=Math.log(1/P.q); return 2*(1-Math.pow(P.q,y))/L;} const p=pExp(); if(Math.abs(p-1)<1e-9)return 2*Math.log(1+y); return 2*(1-Math.pow(1+y,1-p))/(p-1); }
+function areaTotal(){ if(P.mode==='exp')return 2/Math.log(1/P.q); const p=pExp(); return p>1?2/(p-1):Infinity; }
+function tak(t,w,base,K){ let s=0,p=1,sc=1; for(let k=0;k<K;k++){ let v=t*sc; v-=Math.floor(v); s+=p*Math.min(v,1-v); p*=w; sc*=base; if(p<1e-7)break;} return s; }
+// walls relative to g: left = 1+ρT2, right = 1+ρT3
+function wallL(y,K){ return 1+P.rho*tak(y,P.wl,2,K); }
+function wallR(y,K){ return 1+P.rho*tak(y,P.wr,3,K); }
+
+function tokens(){ const cs=getComputedStyle(document.documentElement); const t=n=>cs.getPropertyValue(n).trim(); return {gap:t('--gap'),tl:t('--tower-l'),tr:t('--tower-r'),floor:t('--floor'),line:t('--line'),muted:t('--muted'),fg:t('--fg')}; }
+function resize(){ const dpr=Math.min(2,window.devicePixelRatio||1); const w=cv.clientWidth,h=cv.clientHeight; if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);} }
+
+// screen mapping. y: rows, top = yc + hv/2. x: scaled units u = x / S, S = g(yc) if tracking else 1.
+function scaleS(){ return view.track?g(view.yc):1; }
+function render(){
+  resize(); const W=cv.width,H=cv.height,T=tokens(); ctx.clearRect(0,0,W,H);
+  const dpr=W/cv.clientWidth;
+  const S=scaleS(), gc=g(view.yc);
+  const pxPerY=H/view.hv, pxPerU=W/(2*view.xspan);
+  const yTop=view.yc+view.hv/2;
+  const K=Math.min(24,Math.max(6,Math.ceil(Math.log2(pxPerY))+2));
+  // towers
+  const L=new Float64Array(H),R=new Float64Array(H);
+  for(let j=0;j<H;j++){ const y=yTop-(j+.5)/pxPerY; if(y<0){L[j]=R[j]=NaN;continue;} const rel=g(y)/S; L[j]=-rel*wallL(y,K); R[j]=rel*wallR(y,K); }
+  const X=u=>W/2+(u-view.xc)*pxPerU;
+  // ground
+  const groundRow=(yTop-0)*pxPerY;
+  ctx.fillStyle=T.line; if(groundRow<H) ctx.fillRect(0,groundRow,W,H-groundRow);
+  // left tower body
+  ctx.fillStyle=T.tl; ctx.beginPath(); let started=false;
+  for(let j=0;j<H;j++){ if(isNaN(L[j]))continue; const x=X(L[j]); if(!started){ctx.moveTo(-10,j);started=true;} ctx.lineTo(x,j+1); }
+  if(started){ ctx.lineTo(-10,Math.min(H,groundRow)); ctx.closePath(); ctx.fill(); }
+  ctx.fillStyle=T.tr; ctx.beginPath(); started=false;
+  for(let j=0;j<H;j++){ if(isNaN(R[j]))continue; const x=X(R[j]); if(!started){ctx.moveTo(W+10,j);started=true;} ctx.lineTo(x,j+1); }
+  if(started){ ctx.lineTo(W+10,Math.min(H,groundRow)); ctx.closePath(); ctx.fill(); }
+  // gap
+  ctx.fillStyle=T.gap; ctx.beginPath(); started=false;
+  for(let j=0;j<H;j++){ if(isNaN(L[j]))continue; if(!started){ctx.moveTo(X(L[j]),j);started=true;} ctx.lineTo(X(L[j]),j+1); }
+  for(let j=H-1;j>=0;j--){ if(isNaN(R[j]))continue; ctx.lineTo(X(R[j]),j+1); }
+  if(started){ ctx.closePath(); ctx.fill(); }
+  // storey lines and labels
+  ctx.strokeStyle=T.floor; ctx.lineWidth=1; ctx.fillStyle=T.muted; ctx.font=(10*dpr)+'px IBM Plex Mono, monospace'; ctx.textBaseline='bottom';
+  const step=view.hv>20?5:1;
+  for(let y=Math.ceil(yTop-view.hv);y<=Math.ceil(yTop);y+=step){ if(y<0)continue; const row=(yTop-y)*pxPerY; ctx.beginPath(); ctx.moveTo(0,row); ctx.lineTo(W,row); ctx.stroke(); ctx.fillText('y = '+y,6*dpr,row-2*dpr); }
+  // readouts
+  $('rY').textContent=view.yc.toFixed(2);
+  $('rGap').textContent=fmt(2*gc);
+  $('rMag').textContent=view.track?(1/gc<1e3?(1/gc).toFixed(1)+'×':(1/gc).toExponential(1)+'×'):'1× (true scale)';
+  const at=areaTotal(); $('rArea').textContent=fmt(areaBelow(Math.max(0,view.yc)))+' / '+(isFinite(at)?fmt(at):'∞');
+  $('rDim').textContent=Math.max(1,2+Math.log2(P.wl)).toFixed(3)+' · '+Math.max(1,2+Math.log(P.wr)/Math.log(3)).toFixed(3);
+}
+
+function pointer(px,py){ const W=cv.width,H=cv.height,dpr=W/cv.clientWidth; const y=view.yc+view.hv/2-(py*dpr)/(H/view.hv); if(y<0){$('rPtr').textContent='below ground';return;} const gy=g(y); $('rPtr').textContent='y='+y.toFixed(2)+'  width='+fmt(gy*(wallL(y,24)+wallR(y,24))); }
+
+function zoomAt(py,f){ // vertical zoom (levels in view) about pointer row; x-span zooms too when not tracking
+  const H=cv.height,dpr=H/cv.clientHeight; const yTop=view.yc+view.hv/2; const wy=yTop-(py*dpr)/(H/view.hv);
+  const nh=Math.min(200,Math.max(.5,view.hv/f)); const f2=view.hv/nh; view.yc=wy-(wy-view.yc)/f2; view.hv=nh; if(!view.track)view.xspan=Math.max(1e-9,view.xspan/f2); render(); }
+
+let drag=null;
+cv.addEventListener('wheel',e=>{e.preventDefault(); zoomAt(e.offsetY,Math.exp(-e.deltaY*0.0015));},{passive:false});
+cv.addEventListener('dblclick',e=>zoomAt(e.offsetY,2));
+cv.addEventListener('mousemove',e=>{ if(drag){ const H=cv.height,W=cv.width,dpr=H/cv.clientHeight; view.yc+=(e.clientY-drag.y)*dpr/(H/view.hv); view.xc-=(e.clientX-drag.x)*dpr/(W/(2*view.xspan)); drag={x:e.clientX,y:e.clientY}; render(); } pointer(e.offsetX,e.offsetY); });
+cv.addEventListener('mousedown',e=>{drag={x:e.clientX,y:e.clientY};cv.classList.add('drag');});
+window.addEventListener('mouseup',()=>{drag=null;cv.classList.remove('drag');});
+let touches=new Map(),pinch=null;
+cv.addEventListener('touchstart',e=>{e.preventDefault(); for(const t of e.changedTouches)touches.set(t.identifier,{x:t.clientX,y:t.clientY}); if(touches.size===2){const [a,b]=[...touches.values()];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)};}},{passive:false});
+cv.addEventListener('touchmove',e=>{e.preventDefault(); const rect=cv.getBoundingClientRect(); const H=cv.height,W=cv.width,dpr=H/cv.clientHeight;
+  if(touches.size===1){const t=e.changedTouches[0],p=touches.get(t.identifier); if(!p)return; view.yc+=(t.clientY-p.y)*dpr/(H/view.hv); view.xc-=(t.clientX-p.x)*dpr/(W/(2*view.xspan)); touches.set(t.identifier,{x:t.clientX,y:t.clientY}); render(); pointer(t.clientX-rect.left,t.clientY-rect.top);}
+  else if(touches.size===2&&pinch){for(const t of e.changedTouches)touches.set(t.identifier,{x:t.clientX,y:t.clientY}); const [a,b]=[...touches.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); zoomAt((a.y+b.y)/2-rect.top,d/pinch.d); pinch.d=d;}},{passive:false});
+cv.addEventListener('touchend',e=>{for(const t of e.changedTouches)touches.delete(t.identifier); if(touches.size<2)pinch=null;},{passive:false});
+
+// climb animation
+let climbing=false,raf=0; const cb=$('climb');
+function step(){ if(!climbing)return; view.yc+=view.hv*0.006; if(view.yc>1e6){stop();return;} render(); raf=requestAnimationFrame(step); }
+function stop(){ climbing=false; cb.textContent='Climb'; cb.classList.remove('on'); cancelAnimationFrame(raf); }
+cb.addEventListener('click',()=>{ if(climbing){stop();return;} climbing=true; cb.textContent='Stop'; cb.classList.add('on'); step(); });
+const tb=$('track');
+tb.addEventListener('click',()=>{ view.track=!view.track; tb.classList.toggle('on',view.track); view.xc=0; view.xspan=3; render(); });
+$('reset').addEventListener('click',()=>{ stop(); view.yc=view.hv/2-0.3; view.xc=0; view.xspan=3; render(); });
+
+const sl={q:'vq',rho:'vrho',wl:'vwl',wr:'vwr',hv:'vh'};
+for(const k in sl){ const el=$(k); const show=()=>{ $(sl[k]).textContent=k==='hv'?el.value:(k==='q'&&P.mode==='pow'?'p = '+pExp().toFixed(2):(+el.value).toFixed(3)); }; show();
+  el.addEventListener('input',()=>{ P[k]=+el.value; if(k==='hv')view.hv=+el.value; show(); render(); }); }
+$('mode').addEventListener('change',e=>{ P.mode=e.target.value; $('vq').textContent=P.mode==='pow'?'p = '+pExp().toFixed(2):P.q.toFixed(3); render(); });
+
+window.addEventListener('resize',render);
+const mq=matchMedia('(prefers-color-scheme: dark)'); mq.addEventListener&&mq.addEventListener('change',render);
+new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+view.yc=view.hv/2-0.3; render();
+})();
+</script>
+
+</body>
+</html>
