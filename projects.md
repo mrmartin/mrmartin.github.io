@@ -10,6 +10,7 @@ Things I have made: companies, research, and things built for fun. Projects that
 ## My Work
 
 - [My github page](https://github.com/mrmartin)
+- [coinfs](https://github.com/mrmartin/coin_filesystem), an open-source pool that lets anyone with spare disk space host Filecoin data for money ([write-up]({% post_url 2026-11-09-coinfs-host-filecoin-data-for-money %}))
 - [JustEvidence](http://justevidence.org/)
 - [Information for visitors to Brno](http://vgs-it.fit.vutbr.cz/about-brno/) I created for the seminar series VGS-IT
 - [Subtitlecat.com](http://subtitlecat.com), a cat that translates movie subtitles
