@@ -243,6 +243,12 @@ Hosting a page here gives a piece of work its own web address, so it goes in Pro
 
 If you start the HTML file with `---` front matter, Jekyll processes it as a template, and `{{ }}` or `{% %}` sequences in the JavaScript will break it. Leave the front matter off.
 
+If the app is several files (an HTML page plus its own script files), inline the scripts into the page so it is one file, as `video-call.html` does with its library. Pages hosted here may load third-party libraries from a CDN; the point is that nothing on this site depends on a file that lives somewhere else.
+
+### Check every link before submitting
+
+Every URL in a post or a Projects entry must work on the day the change is merged. Open each one. The case to watch for: a page served by another repository's GitHub Pages (for example `https://mrmartin.net/bep46-webrtc/...`, which comes from the `bep46-webrtc` repository's `main` branch) does not exist until the work is merged there, however finished it looks on a branch. The video calls post went live with its main link returning 404 for exactly this reason. If the page is not live yet, either wait for that merge before submitting, or host a self-contained copy of the page here and link to that, as `video-call.html` does.
+
 ## Editing the pages
 
 All four pages use `layout: page` and a `permalink:`. Edit the Markdown directly.

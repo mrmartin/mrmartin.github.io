@@ -8,7 +8,7 @@ categories: computing
 
 I have added video calls to [bep46-webrtc](https://github.com/mrmartin/bep46-webrtc), my project for web pages that live in the browsers of the people reading them. The call works the same way: there is no server in the middle, only a link.
 
-[Start a call](https://mrmartin.net/bep46-webrtc/call.html){: target="_blank" rel="noopener"}
+[Start a call]({{ "/video-call.html" | relative_url }}){: target="_blank" rel="noopener"}
 
 You open the page, you see your own camera and microphone level, and there is one button. Pressing it gives you a link. Whoever opens the link is in the call. Nothing about the link is stored anywhere, so the same link works next Tuesday, and the Tuesday after that, even if nobody used it in between. There are no accounts and nothing to install; a current Chrome or Edge is enough.
 
@@ -27,4 +27,4 @@ What is still needed is a way for browsers to find each other. That is a WebSock
 
 This is a hobby, so the honest list: Chromium browsers are the target, because they have the WebCodecs API that makes relaying without re-encoding possible. Two people who are both behind strict NATs may not be able to connect directly, in which case the call routes around them through someone else. The relays can see the video they forward, since they are participants in the same call. And a tab has to stay open; there is no one to hold the call for you when everyone leaves, which is also the point.
 
-The code, the design and the tests are in the [repository](https://github.com/mrmartin/bep46-webrtc){: target="_blank" rel="noopener"}.
+The page above is a self-contained copy hosted on this site. The code, the design and the tests are in the [repository](https://github.com/mrmartin/bep46-webrtc){: target="_blank" rel="noopener"}, where the same page is served from the project's own site once it is on its main branch.
